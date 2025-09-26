@@ -24,7 +24,7 @@
     <link rel="canonical" href="https://www.trifarma.com/">
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     
-    <title>Trifarma - Droguería | Productos Farmacéuticos de Calidad</title>
+    <title>Trifarma - Droguería</title>
     
     <link rel="stylesheet" href="styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -62,7 +62,7 @@
         <div class="container">
             <div class="logo">
                 <a href="#inicio">
-                    <img src="./img/logo.jpg" alt="Trifarma - Droguería especializada" width="180" height="40">
+                    <img src="./img/logo.png" alt="Trifarma - Droguería especializada" width="180" height="40">
                 </a>
             </div>
             <nav class="nav" role="navigation" aria-label="Menú principal">
@@ -84,10 +84,14 @@
     <section id="inicio" class="hero" role="region" aria-label="Presentación de Trifarma">
         <div class="container">
             <div class="hero-content">
-                <h1>Cuidamos tu salud con calidad y confianza</h1>
+                <h1>Cuidamos tu salud con <span class="highlight">calidad</span> y <span class="highlight">confianza</span></h1>
                 <p>En Trifarma nos dedicamos a ofrecerte los mejores productos farmacéuticos con el más alto estándar de calidad.</p>
-                <a href="#productos" class="btn">Nuestros Productos</a>
+                <a href="#productos" class="btn">Descubrir Productos</a>
             </div>
+        </div>
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
         </div>
     </section>
 
@@ -97,49 +101,146 @@
             <h2 class="section-title">Sobre Nosotros</h2>
             <div class="nosotros-content">
                 <div class="nosotros-text">
-                    <p>Trifarma nació con la misión de proporcionar productos farmacéuticos de alta calidad a precios accesibles. Con más de 5 años en el mercado, nos hemos consolidado como referentes en el sector de droguerías.</p>
-                    <p>Nuestro equipo de profesionales altamente capacitados está comprometido con tu bienestar, ofreciendo asesoramiento personalizado y soluciones efectivas para el cuidado de tu salud.</p>
-                    <p>Trabajamos con los mejores laboratorios y proveedores para garantizar que cada producto cumpla con los más estrictos estándares de calidad y seguridad.</p>
+                    <p class="intro-text">Somos una compañía farmacéutica que promueve y comercializa productos con altos estándares de calidad para la salud, mejorando la calidad de vida de las personas.</p>
+                    
+                    <div class="mision-vision">
+                        <div class="mv-item">
+                            <div class="mv-header">
+                                <i class="fas fa-bullseye"></i>
+                                <h3>Misión</h3>
+                            </div>
+                            <p>Desarrollar con integridad productos farmacéuticos de alta calidad promoviendo el acceso a salud y calidad de vida de las personas.</p>
+                        </div>
+                        
+                        <div class="mv-item">
+                            <div class="mv-header">
+                                <i class="fas fa-eye"></i>
+                                <h3>Visión</h3>
+                            </div>
+                            <p>Ser líder en el desarrollo de medicamentos innovadores a nivel nacional e internacional, ser proveedores de soluciones farmacéuticas de calidad y asequibles para el bienestar de las familias.</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="nosotros-image">
-                    <img src="./img/laboratorio.jpg" alt="Farmacéuticos de Trifarma trabajando en la droguería" loading="lazy">
+                    <div class="image-frame">
+                        <img src="./img/laboratorio.jpg" alt="Farmacéuticos de Trifarma trabajando en la droguería" loading="lazy">
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- Productos Section -->
-    <section id="productos" class="productos" role="region" aria-label="Productos de Trifarma">
+    <section id="productos" class="productos-destacados" role="region" aria-label="Productos destacados de Trifarma">
         <div class="container">
             <h2 class="section-title">Nuestros Productos</h2>
-            <div class="productos-grid">
-                <div class="producto-card">
-                    <div class="producto-icon">
-                        <i class="fas fa-pills" aria-hidden="true"></i>
+            <p class="section-subtitle">Soluciones farmacéuticas de calidad para el bienestar de tu familia</p>
+            
+            <div class="productos-grid-destacados">
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/kidmax.png" alt="Kidmax - Jarabe Multivitamínico con Hierro y Minerales" loading="lazy">
                     </div>
-                    <h3>Vitaminas</h3>
-                    <p>Completa gama de vitaminas esenciales para fortalecer tu sistema inmunológico y mejorar tu salud.</p>
+                    <div class="producto-info">
+                        <h3>Kidmax</h3>
+                        <p class="producto-descripcion">Jarabe multivitamínico con hierro y minerales especialmente formulado para el crecimiento y desarrollo infantil.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">120 mL</span>
+                            <span class="presentacion">240 mL</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="producto-card">
-                    <div class="producto-icon">
-                        <i class="fas fa-capsules" aria-hidden="true"></i>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/duopack.png" alt="Duopack - Jarabe Multivitamínico con Hierro y Minerales" loading="lazy">
                     </div>
-                    <h3>Suplementos</h3>
-                    <p>Suplementos nutricionales de alta calidad para complementar tu dieta y mejorar tu bienestar.</p>
+                    <div class="producto-info">
+                        <h3>Kidmax Duopack</h3>
+                        <p class="producto-descripcion">Combo especial que incluye Kidmax en presentación de 120 mL y 240 mL para mayor comodidad y economía.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion destacada">Pack 120 mL + 240 mL</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="producto-card">
-                    <div class="producto-icon">
-                        <i class="fas fa-soap" aria-hidden="true"></i>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/enerking.png" alt="Enerking - Suplemento vitamínico" loading="lazy">
                     </div>
-                    <h3>Cuidado Personal</h3>
-                    <p>Productos de higiene y cuidado personal que cuidan tu cuerpo con ingredientes de primera calidad.</p>
+                    <div class="producto-info">
+                        <h3>Enerking</h3>
+                        <p class="producto-descripcion">Suplemento vitamínico completo que proporciona energía y vitalidad para el día a día.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">30 cápsulas</span>
+                            <span class="presentacion">60 cápsulas</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="producto-card">
-                    <div class="producto-icon">
-                        <i class="fas fa-flask" aria-hidden="true"></i>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/starsingrip.png" alt="Starsingrip - Solución oral con Vitaminas A, D, E, C y Zinc" loading="lazy">
                     </div>
-                    <h3>Innovación</h3>
-                    <p>Productos innovadores con tecnología de punta para el cuidado avanzado de la salud.</p>
+                    <div class="producto-info">
+                        <h3>Starsingrip</h3>
+                        <p class="producto-descripcion">Solución oral con vitaminas A, D, E, C y Zinc para fortalecer el sistema inmunológico.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">15 flaconetes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/viotrof.png" alt="Viotrof - Jarabe Antianémico" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <h3>Viotrof</h3>
+                        <p class="producto-descripcion">Jarabe antianémico con hierro y ácido fólico para el tratamiento y prevención de la anemia.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">Frasco 120 mL</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/argking.png" alt="Arking - Solución Oral" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <h3>Argking</h3>
+                        <p class="producto-descripcion">Solución oral para el bienestar general con fórmula equilibrada de nutrientes esenciales.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">15 flaconetes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/ginsenvit.png" alt="Ginsenvit - Suplemento energético" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <h3>Ginsenvit</h3>
+                        <p class="producto-descripcion">Suplemento energético con ginseng y vitaminas para aumentar el rendimiento físico y mental.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">15 flaconetes</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="producto-destacado-card">
+                    <div class="producto-imagen">
+                        <img src="./img/dexketoprofeno.png" alt="Dexketoprofeno - Analgésico y Antiinflamatorio" loading="lazy">
+                    </div>
+                    <div class="producto-info">
+                        <h3>Dexketoprofeno</h3>
+                        <p class="producto-descripcion">Analgésico y antiinflamatorio no esteroideo para el alivio del dolor agudo y moderado.</p>
+                        <div class="producto-presentaciones">
+                            <span class="presentacion">10 sachets</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -149,27 +250,29 @@
     <section id="valores" class="valores" role="region" aria-label="Valores de Trifarma">
         <div class="container">
             <h2 class="section-title">Nuestros Valores</h2>
+            <p class="section-subtitle">Principios que guían nuestro compromiso con la salud y bienestar</p>
+            
             <div class="valores-grid">
                 <div class="valor-card">
                     <div class="valor-icon">
-                        <i class="fas fa-handshake" aria-hidden="true"></i>
+                        <i class="fas fa-balance-scale" aria-hidden="true"></i>
                     </div>
-                    <h3>Confianza</h3>
-                    <p>Construimos relaciones duraderas basadas en la honestidad y transparencia con nuestros clientes.</p>
+                    <h3>Integridad</h3>
+                    <p>Ética y transparencia cumpliendo normas sanitarias y legales actuando con honestidad y priorizando el bienestar de las personas.</p>
                 </div>
                 <div class="valor-card">
                     <div class="valor-icon">
-                        <i class="fas fa-lightbulb" aria-hidden="true"></i>
+                        <i class="fas fa-users" aria-hidden="true"></i>
                     </div>
-                    <h3>Innovación</h3>
-                    <p>Buscamos constantemente nuevas soluciones y productos para mejorar la salud y bienestar.</p>
+                    <h3>Compromiso con los colaboradores</h3>
+                    <p>Valoración y crecimiento de nuestros colaboradores, potencializando el talento humano para el aprovechamiento del bien común.</p>
                 </div>
                 <div class="valor-card">
                     <div class="valor-icon">
-                        <i class="fas fa-star" aria-hidden="true"></i>
+                        <i class="fas fa-recycle" aria-hidden="true"></i>
                     </div>
-                    <h3>Excelencia</h3>
-                    <p>Nos esforzamos por superar expectativas en cada aspecto de nuestro servicio y productos.</p>
+                    <h3>Desarrollo sostenible</h3>
+                    <p>Prácticas comerciales sanas, buena gestión del recurso humano, financiero y naturales que fomenten un equilibrio en nuestras operaciones.</p>
                 </div>
             </div>
         </div>
@@ -179,6 +282,8 @@
     <section id="contacto" class="contacto" role="region" aria-label="Contactar a Trifarma">
         <div class="container">
             <h2 class="section-title">Contáctanos</h2>
+            <p class="section-subtitle">Estamos aquí para atender tus consultas y necesidades</p>
+            
             <div class="contacto-content">
                 <div class="contacto-form">
                     <form id="formulario-contacto">
@@ -200,6 +305,15 @@
                 <div class="contacto-info">
                     <div class="info-item">
                         <div class="info-icon">
+                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        </div>
+                        <div class="info-content">
+                            <h3>Dirección</h3>
+                            <p>31 avenida 10-33 zona 7 Colonia Centro América, Ciudad de Guatemala, Guatemala</p>
+                        </div>
+                    </div>
+                    <div class="info-item">
+                        <div class="info-icon">
                             <i class="fas fa-phone" aria-hidden="true"></i>
                         </div>
                         <div class="info-content">
@@ -214,15 +328,6 @@
                         <div class="info-content">
                             <h3>Email</h3>
                             <p>info@trifarma.com</p>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                        </div>
-                        <div class="info-content">
-                            <h3>Dirección</h3>
-                            <p>31 avenida 10-33 zona 7 Colonia Centro América, Ciudad de Guatemala, Guatemala</p>
                         </div>
                     </div>
                     <div class="info-item">
@@ -246,6 +351,9 @@
                 <div class="footer-section">
                     <h2>Trifarma</h2>
                     <p>Cuidamos tu salud con calidad y confianza.</p>
+                    <div class="footer-logo">
+                        <img src="./img/logo.png" alt="Trifarma" width="120">
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h3>Enlaces Rápidos</h3>
