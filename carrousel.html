@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trifarma - Carrusel de Productos</title>
+    <style>
+        :root {
+            --color-azul-oscuro: #004AAD;
+            --color-azul-intermedio: #009FE3;
+            --color-azul-claro: #00C2FF;
+            --color-amarillo: #FFD700;
+            --color-blanco: #FFFFFF;
+            --color-gris-claro: #F8F9FA;
+            --color-texto: #212529;
+            --color-texto-claro: #6C757D;
+            
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: var(--color-texto);
+            overflow-x: hidden;
+        }
+
+        /* Hero Carousel */
+        .hero-carousel {
+            position: relative;
+            height: 100vh;
+            margin-top: var(--header-height);
+            overflow: hidden;
+        }
+
+        .carousel-slides {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+
+        .carousel-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1.2s ease-in-out;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .carousel-slide.active {
+            opacity: 1;
+        }
+
+        .slide-1 {
+            background: linear-gradient(rgba(0, 74, 173, 0.85), rgba(0, 159, 227, 0.85));
+        }
+
+        .slide-2 {
+            background: linear-gradient(rgba(0, 74, 173, 0.85), rgba(0, 159, 227, 0.85));
+        }
+
+        .slide-3 {
+            background: linear-gradient(rgba(0, 159, 227, 0.85), rgba(0, 74, 173, 0.85));
+        }
+
+        .slide-4 {
+            background: linear-gradient(rgba(0, 74, 173, 0.85), rgba(0, 159, 227, 0.85));
+        }
+
+        .slide-5 {
+            background: linear-gradient(rgba(0, 159, 227, 0.85), rgba(0, 74, 173, 0.85));
+        }
+
+        .slide-content {
+            max-width: 1200px;
+            width: 90%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            color: var(--color-blanco);
+            z-index: 2;
+        }
+
+        .product-info {
+            padding-right: 2rem;
+        }
+
+        .product-info h1 {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .highlight {
+            color: var(--color-amarillo);
+            position: relative;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 215, 0, 0.3);
+            z-index: -1;
+            border-radius: 4px;
+        }
+
+        .product-slogan {
+            font-size: clamp(1.1rem, 3vw, 1.4rem);
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            margin-bottom: 2.5rem;
+        }
+
+        .feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .feature i {
+            color: var(--color-amarillo);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 14px 32px;
+            background: linear-gradient(135deg, var(--color-azul-claro) 0%, var(--color-azul-intermedio) 50%, var(--color-azul-oscuro) 100%);
+            color: var(--color-blanco);
+            text-decoration: none;
+            border-radius: 30px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .product-image img {
+            max-width: 100%;
+            max-height: 500px;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+            transition: transform 0.5s ease;
+        }
+
+        .carousel-slide.active .product-image img {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Carousel Controls */
+        .carousel-controls {
+            position: absolute;
+            bottom: 40px;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 12px;
+        }
+
+        .carousel-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .carousel-dot.active {
+            background: var(--color-amarillo);
+            transform: scale(1.2);
+        }
+
+        .carousel-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            transform: translateY(-50%);
+            z-index: 10;
+        }
+
+        .carousel-nav button {
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-nav button:hover {
+            background: var(--color-amarillo);
+            color: var(--color-azul-oscuro);
+        }
+
+        /* Scroll Indicator */
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 100px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: bounce 2s infinite;
+            z-index: 10;
+        }
+
+        .scroll-arrow {
+            width: 2px;
+            height: 20px;
+            background: var(--color-amarillo);
+            margin-top: 5px;
+            position: relative;
+        }
+
+        .scroll-arrow::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: -4px;
+            width: 10px;
+            height: 10px;
+            border-right: 2px solid var(--color-amarillo);
+            border-bottom: 2px solid var(--color-amarillo);
+            transform: rotate(45deg);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0) translateX(-50%);
+            }
+            40% {
+                transform: translateY(-10px) translateX(-50%);
+            }
+            60% {
+                transform: translateY(-5px) translateX(-50%);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .slide-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 2rem;
+            }
+            
+            .product-info {
+                padding-right: 0;
+                order: 2;
+            }
+            
+            .product-image {
+                order: 1;
+            }
+            
+            .product-image img {
+                max-height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .carousel-nav {
+                padding: 0 15px;
+            }
+            
+            .carousel-nav button {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+            
+            .hero-scroll-indicator {
+                bottom: 120px;
+            }
+            
+            .feature {
+                justify-content: center;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Hero Carousel Section -->
+    <section id="inicio" class="hero-carousel" role="region" aria-label="Productos destacados de Trifarma">
+        <div class="carousel-slides">
+            <!-- Slide 1 - Kidmax -->
+            <div class="carousel-slide slide-1 active">
+                <div class="slide-content">
+                    <div class="product-info">
+                        <h1><span class="highlight">Kidmax</span><br>Multivitamínico Infantil</h1>
+                        <p class="product-slogan">El complemento perfecto para el crecimiento y desarrollo saludable de tus hijos</p>
+                        
+                        <div class="product-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Con hierro y minerales esenciales</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Fórmula especial para niños</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Presentaciones: 120mL y 240mL</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#productos" class="btn">Conoce Kidmax</a>
+                    </div>
+                    
+                    <div class="product-image">
+                        <img src="./img/kidmax.png" alt="Kidmax - Jarabe Multivitamínico Infantil">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 2 - Enerking -->
+            <div class="carousel-slide slide-2">
+                <div class="slide-content">
+                    <div class="product-info">
+                        <h1><span class="highlight">Enerking</span><br>Energía y Vitalidad</h1>
+                        <p class="product-slogan">Recarga tu energía y enfrenta cada día con vitalidad y bienestar</p>
+                        
+                        <div class="product-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Suplemento vitamínico completo</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ideal para el día a día</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Presentaciones: 30 y 60 cápsulas</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#productos" class="btn">Descubre Enerking</a>
+                    </div>
+                    
+                    <div class="product-image">
+                        <img src="./img/enerking.png" alt="Enerking - Suplemento de Energía y Vitalidad">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 3 - Starsingrip -->
+            <div class="carousel-slide slide-3">
+                <div class="slide-content">
+                    <div class="product-info">
+                        <h1><span class="highlight">Starsingrip</span><br>Defensas Naturales</h1>
+                        <p class="product-slogan">Fortalece tu sistema inmunológico con la potencia de las vitaminas A, D, E, C y Zinc</p>
+                        
+                        <div class="product-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Combinación de vitaminas esenciales</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Protección inmunológica</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Presentación: 15 flaconetes</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#productos" class="btn">Fortalece tus Defensas</a>
+                    </div>
+                    
+                    <div class="product-image">
+                        <img src="./img/starsingrip.JPG" alt="Starsingrip - Solución para Defensas Inmunológicas">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 4 - Viotrof -->
+            <div class="carousel-slide slide-4">
+                <div class="slide-content">
+                    <div class="product-info">
+                        <h1><span class="highlight">Viotrof</span><br>Combate la Anemia</h1>
+                        <p class="product-slogan">Jarabe antianémico con hierro y ácido fólico para recuperar tu vitalidad</p>
+                        
+                        <div class="product-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Hierro y ácido fólico</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Tratamiento y prevención</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Presentación: Frasco 120mL</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#productos" class="btn">Conoce Viotrof</a>
+                    </div>
+                    
+                    <div class="product-image">
+                        <img src="./img/viotrof.JPG" alt="Viotrof - Jarabe Antianémico">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Slide 5 - Ginsenvit -->
+            <div class="carousel-slide slide-5">
+                <div class="slide-content">
+                    <div class="product-info">
+                        <h1><span class="highlight">Ginsenvit</span><br>Energía Natural</h1>
+                        <p class="product-slogan">Potencia tu rendimiento físico y mental con la energía del ginseng y vitaminas</p>
+                        
+                        <div class="product-features">
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Ginseng natural y vitaminas</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Energía física y mental</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check-circle"></i>
+                                <span>Presentación: 15 flaconetes</span>
+                            </div>
+                        </div>
+                        
+                        <a href="#productos" class="btn">Energízate Naturalmente</a>
+                    </div>
+                    
+                    <div class="product-image">
+                        <img src="./img/ginsenvit.JPG" alt="Ginsenvit - Energizante Natural">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Carousel Navigation -->
+        <div class="carousel-nav">
+            <button class="carousel-prev" aria-label="Producto anterior">&#10094;</button>
+            <button class="carousel-next" aria-label="Producto siguiente">&#10095;</button>
+        </div>
+        
+        <!-- Carousel Dots -->
+        <div class="carousel-controls">
+            <div class="carousel-dots">
+                <div class="carousel-dot active" data-slide="0"></div>
+                <div class="carousel-dot" data-slide="1"></div>
+                <div class="carousel-dot" data-slide="2"></div>
+                <div class="carousel-dot" data-slide="3"></div>
+                <div class="carousel-dot" data-slide="4"></div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.carousel-slide');
+            const dots = document.querySelectorAll('.carousel-dot');
+            const prevBtn = document.querySelector('.carousel-prev');
+            const nextBtn = document.querySelector('.carousel-next');
+            let currentSlide = 0;
+            let slideInterval;
+            
+            // Function to show a specific slide
+            function showSlide(index) {
+                // Remove active class from all slides and dots
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                // Add active class to current slide and dot
+                slides[index].classList.add('active');
+                dots[index].classList.add('active');
+                
+                currentSlide = index;
+            }
+            
+            // Function to show next slide
+            function nextSlide() {
+                let nextIndex = (currentSlide + 1) % slides.length;
+                showSlide(nextIndex);
+            }
+            
+            // Function to show previous slide
+            function prevSlide() {
+                let prevIndex = (currentSlide - 1 + slides.length) % slides.length;
+                showSlide(prevIndex);
+            }
+            
+            // Start automatic sliding
+            function startSlideShow() {
+                slideInterval = setInterval(nextSlide, 6000); // Change slide every 6 seconds
+            }
+            
+            // Stop automatic sliding
+            function stopSlideShow() {
+                clearInterval(slideInterval);
+            }
+            
+            // Event listeners for buttons
+            nextBtn.addEventListener('click', function() {
+                stopSlideShow();
+                nextSlide();
+                startSlideShow();
+            });
+            
+            prevBtn.addEventListener('click', function() {
+                stopSlideShow();
+                prevSlide();
+                startSlideShow();
+            });
+            
+            // Event listeners for dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function() {
+                    stopSlideShow();
+                    showSlide(index);
+                    startSlideShow();
+                });
+            });
+            
+            // Pause on hover
+            const carousel = document.querySelector('.hero-carousel');
+            carousel.addEventListener('mouseenter', stopSlideShow);
+            carousel.addEventListener('mouseleave', startSlideShow);
+            
+            // Start the slideshow
+            startSlideShow();
+        });
+    </script>
+</body>
+</html>

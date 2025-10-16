@@ -1,43 +1,62 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Trifarma - Droguería especializada en productos farmacéuticos de calidad. Vitaminas, suplementos, cuidado personal e innovación en medicamentos.">
-    <meta name="keywords" content="farmacia, droguería, medicamentos, vitaminas, suplementos, cuidado personal, salud, Bogotá, Colombia">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+    <meta name="description"
+        content="Droguería Trifarma Guatemala - Productos farmacéuticos de calidad: Kidmax, Enerking, Dexketoprofeno. Vitaminas, suplementos y medicamentos para toda la familia.">
+    <meta name="keywords"
+        content="droguería Guatemala, farmacia, medicamentos Guatemala, vitaminas, suplementos, Kidmax, Enerking, Dexketoprofeno, salud familiar, productos farmacéuticos">
     <meta name="author" content="Trifarma">
     <meta name="robots" content="index, follow">
     
+    <!-- Preconexión para recursos externos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Precarga de imágenes críticas -->
+    <link rel="preload" href="./img/logo.png" as="image" type="image/png">
+    <link rel="preload" href="./img/hero-background.jpeg" as="image" type="image/jpeg">
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://www.trifarma.com/">
+    <meta property="og:url" content="https://www.drogueriatrifarma.com/">
     <meta property="og:title" content="Trifarma - Cuidamos tu salud con calidad y confianza">
-    <meta property="og:description" content="Droguería especializada en productos farmacéuticos de calidad. Encuentra vitaminas, suplementos y productos para el cuidado personal.">
-    <meta property="og:image" content="https://www.trifarma.com/images/og-image.jpg">
-    
+    <meta property="og:description"
+        content="Droguería especializada en productos farmacéuticos de calidad. Encuentra vitaminas, suplementos y productos para el cuidado personal.">
+    <meta property="og:image" content="https://www.drogueriatrifarma.com/images/og-image.jpg">
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://www.trifarma.com/">
+    <meta property="twitter:url" content="https://www.drogueriatrifarma.com/">
     <meta property="twitter:title" content="Trifarma - Cuidamos tu salud con calidad y confianza">
     <meta property="twitter:description" content="Droguería especializada en productos farmacéuticos de calidad.">
-    
-    <link rel="canonical" href="https://www.trifarma.com/">
+
+    <!-- Favicon y theme color -->
+    <link rel="canonical" href="https://www.drogueriatrifarma.com/">
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
-    
-    <title>Trifarma - Droguería</title>
-    
+    <meta name="theme-color" content="#004AAD">
+
+    <title>Droguería Trifarma - Productos Farmacéuticos de Calidad en Guatemala</title>
+
+    <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <!-- Schema.org markup for Google -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "Pharmacy",
       "name": "Trifarma",
-      "image": "https://www.trifarma.com/images/logo.jpg",
-      "description": "Droguería especializada en productos farmacéuticos de calidad.",
+      "image": "https://www.drogueriatrifarma.com/images/logo.jpg",
+      "description": "Droguería especializada en productos farmacéuticos de calidad en Guatemala.",
+      "url": "https://www.drogueriatrifarma.com/",
+      "telephone": "+50225080642",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "31 avenida 10-33 zona 7 Colonia Centro América",
@@ -49,300 +68,414 @@
         "latitude": "14.634915",
         "longitude": "-90.506882"
       },
-      "openingHours": "Mo-Fr 08:00-17:00",
-      "telephone": "+50225080642",
+      "openingHours": [
+        "Mo-Fr 08:00-17:00"
+      ],
       "priceRange": "$$",
-      "url": "https://www.trifarma.com/"
+      "sameAs": []
     }
     </script>
 </head>
+
 <body>
+    <!-- Skip link para accesibilidad -->
+    <a href="#main-content" class="skip-link sr-only">Saltar al contenido principal</a>
+
     <!-- Header -->
     <header class="header" role="banner">
         <div class="container">
             <div class="logo">
-                <a href="#inicio">
-                    <img src="./img/logo.png" alt="Trifarma - Droguería especializada" width="180" height="40">
+                <a href="#inicio" aria-label="Trifarma - Ir al inicio">
+                    <img src="./img/logo.png" alt="Trifarma - Droguería especializada" width="180" height="40" loading="eager">
                 </a>
             </div>
             <nav class="nav" role="navigation" aria-label="Menú principal">
                 <ul>
                     <li><a href="#inicio">Inicio</a></li>
                     <li><a href="#nosotros">Nosotros</a></li>
-                    <li><a href="#productos">Productos</a></li>
+                    <li><a href="#lineas-terapeuticas">Líneas Terapéuticas</a></li>
                     <li><a href="#valores">Valores</a></li>
                     <li><a href="#contacto">Contacto</a></li>
                 </ul>
             </nav>
-            <div class="menu-toggle" aria-label="Abrir menú">
+            <button class="menu-toggle" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">
                 <i class="fas fa-bars"></i>
-            </div>
+            </button>
         </div>
     </header>
 
-    <!-- Hero Section -->
-    <section id="inicio" class="hero" role="region" aria-label="Presentación de Trifarma">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Cuidamos tu salud con <span class="highlight">calidad</span> y <span class="highlight">confianza</span></h1>
-                <p>En Trifarma nos dedicamos a ofrecerte los mejores productos farmacéuticos con el más alto estándar de calidad.</p>
-                <a href="#productos" class="btn">Descubrir Productos</a>
+    <!-- Contenido Principal -->
+    <main id="main-content" role="main">
+        <!-- Hero Section -->
+        <section id="inicio" class="hero" role="region" aria-label="Presentación de Trifarma">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Cuidamos tu salud con <span class="highlight">calidad</span> y <span
+                            class="highlight">confianza</span></h1>
+                    <p>En Trifarma nos dedicamos a ofrecerte los mejores productos farmacéuticos con el más alto estándar de
+                        calidad.</p>
+                    <a href="#lineas-terapeuticas" class="btn">Descubrir Productos</a>
+                </div>
             </div>
-        </div>
-        <div class="hero-scroll-indicator">
-            <span>Scroll</span>
-            <div class="scroll-arrow"></div>
-        </div>
-    </section>
+            <div class="hero-scroll-indicator">
+                <span>Scroll</span>
+                <div class="scroll-arrow"></div>
+            </div>
+        </section>
 
-    <!-- Nosotros Section -->
-    <section id="nosotros" class="nosotros" role="region" aria-label="Sobre Trifarma">
-        <div class="container">
-            <h2 class="section-title">Sobre Nosotros</h2>
-            <div class="nosotros-content">
-                <div class="nosotros-text">
-                    <p class="intro-text">Somos una compañía farmacéutica que promueve y comercializa productos con altos estándares de calidad para la salud, mejorando la calidad de vida de las personas.</p>
-                    
-                    <div class="mision-vision">
-                        <div class="mv-item">
-                            <div class="mv-header">
-                                <i class="fas fa-bullseye"></i>
-                                <h3>Misión</h3>
+        <!-- Nosotros Section -->
+        <section id="nosotros" class="nosotros" role="region" aria-label="Sobre Trifarma">
+            <div class="container">
+                <h2 class="section-title">Sobre Nosotros</h2>
+                <div class="nosotros-content">
+                    <div class="nosotros-text">
+                        <p class="intro-text">Somos una compañía farmacéutica que promueve y comercializa productos con
+                            altos estándares de calidad para la salud, mejorando la calidad de vida de las personas.</p>
+
+                        <div class="mision-vision">
+                            <div class="mv-item">
+                                <div class="mv-header">
+                                    <i class="fas fa-bullseye" aria-hidden="true"></i>
+                                    <h3>Misión</h3>
+                                </div>
+                                <p>Desarrollar con integridad productos farmacéuticos de alta calidad promoviendo el acceso
+                                    a salud y calidad de vida de las personas.</p>
                             </div>
-                            <p>Desarrollar con integridad productos farmacéuticos de alta calidad promoviendo el acceso a salud y calidad de vida de las personas.</p>
-                        </div>
-                        
-                        <div class="mv-item">
-                            <div class="mv-header">
-                                <i class="fas fa-eye"></i>
-                                <h3>Visión</h3>
+
+                            <div class="mv-item">
+                                <div class="mv-header">
+                                    <i class="fas fa-eye" aria-hidden="true"></i>
+                                    <h3>Visión</h3>
+                                </div>
+                                <p>Ser líder en el desarrollo de medicamentos innovadores a nivel nacional e internacional,
+                                    ser proveedores de soluciones farmacéuticas de calidad y asequibles para el bienestar de
+                                    las familias.</p>
                             </div>
-                            <p>Ser líder en el desarrollo de medicamentos innovadores a nivel nacional e internacional, ser proveedores de soluciones farmacéuticas de calidad y asequibles para el bienestar de las familias.</p>
+                        </div>
+                    </div>
+                    <div class="nosotros-image">
+                        <div class="image-frame">
+                            <img src="./img/laboratorio.jpg" alt="Farmacéuticos de Trifarma trabajando en la droguería"
+                                loading="lazy" width="600" height="400">
                         </div>
                     </div>
                 </div>
-                <div class="nosotros-image">
-                    <div class="image-frame">
-                        <img src="./img/laboratorio.jpg" alt="Farmacéuticos de Trifarma trabajando en la droguería" loading="lazy">
-                    </div>
-                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Productos Section -->
-    <section id="productos" class="productos-destacados" role="region" aria-label="Productos destacados de Trifarma">
-        <div class="container">
-            <h2 class="section-title">Nuestros Productos</h2>
-            <p class="section-subtitle">Soluciones farmacéuticas de calidad para el bienestar de tu familia</p>
-            
-            <div class="productos-grid-destacados">
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/kidmax.png" alt="Kidmax - Jarabe Multivitamínico con Hierro y Minerales" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Kidmax</h3>
-                        <p class="producto-descripcion">Jarabe multivitamínico con hierro y minerales especialmente formulado para el crecimiento y desarrollo infantil.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">120 mL</span>
-                            <span class="presentacion">240 mL</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/duopack.png" alt="Duopack - Jarabe Multivitamínico con Hierro y Minerales" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Kidmax Duopack</h3>
-                        <p class="producto-descripcion">Combo especial que incluye Kidmax en presentación de 120 mL y 240 mL para mayor comodidad y economía.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion destacada">Pack 120 mL + 240 mL</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/enerking.png" alt="Enerking - Suplemento vitamínico" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Enerking</h3>
-                        <p class="producto-descripcion">Suplemento vitamínico completo que proporciona energía y vitalidad para el día a día.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">30 cápsulas</span>
-                            <span class="presentacion">60 cápsulas</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/starsingrip.png" alt="Starsingrip - Solución oral con Vitaminas A, D, E, C y Zinc" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Starsingrip</h3>
-                        <p class="producto-descripcion">Solución oral con vitaminas A, D, E, C y Zinc para fortalecer el sistema inmunológico.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">15 flaconetes</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/viotrof.png" alt="Viotrof - Jarabe Antianémico" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Viotrof</h3>
-                        <p class="producto-descripcion">Jarabe antianémico con hierro y ácido fólico para el tratamiento y prevención de la anemia.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">Frasco 120 mL</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/argking.png" alt="Arking - Solución Oral" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Argking</h3>
-                        <p class="producto-descripcion">Solución oral para el bienestar general con fórmula equilibrada de nutrientes esenciales.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">15 flaconetes</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/ginsenvit.png" alt="Ginsenvit - Suplemento energético" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Ginsenvit</h3>
-                        <p class="producto-descripcion">Suplemento energético con ginseng y vitaminas para aumentar el rendimiento físico y mental.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">15 flaconetes</span>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="producto-destacado-card">
-                    <div class="producto-imagen">
-                        <img src="./img/dexketoprofeno.png" alt="Dexketoprofeno - Analgésico y Antiinflamatorio" loading="lazy">
-                    </div>
-                    <div class="producto-info">
-                        <h3>Dexketoprofeno</h3>
-                        <p class="producto-descripcion">Analgésico y antiinflamatorio no esteroideo para el alivio del dolor agudo y moderado.</p>
-                        <div class="producto-presentaciones">
-                            <span class="presentacion">10 sachets</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+        <!-- Líneas Terapéuticas Section -->
+        <section id="lineas-terapeuticas" class="lineas-terapeuticas" role="region"
+            aria-label="Líneas Terapéuticas de Trifarma">
+            <div class="container">
+                <h2 class="section-title">Líneas Terapéuticas</h2>
+                <p class="section-subtitle">Soluciones farmacéuticas de calidad para el bienestar de tu familia</p>
 
-    <!-- Valores Section -->
-    <section id="valores" class="valores" role="region" aria-label="Valores de Trifarma">
-        <div class="container">
-            <h2 class="section-title">Nuestros Valores</h2>
-            <p class="section-subtitle">Principios que guían nuestro compromiso con la salud y bienestar</p>
-            
-            <div class="valores-grid">
-                <div class="valor-card">
-                    <div class="valor-icon">
-                        <i class="fas fa-balance-scale" aria-hidden="true"></i>
-                    </div>
-                    <h3>Integridad</h3>
-                    <p>Ética y transparencia cumpliendo normas sanitarias y legales actuando con honestidad y priorizando el bienestar de las personas.</p>
-                </div>
-                <div class="valor-card">
-                    <div class="valor-icon">
-                        <i class="fas fa-users" aria-hidden="true"></i>
-                    </div>
-                    <h3>Compromiso con los colaboradores</h3>
-                    <p>Valoración y crecimiento de nuestros colaboradores, potencializando el talento humano para el aprovechamiento del bien común.</p>
-                </div>
-                <div class="valor-card">
-                    <div class="valor-icon">
-                        <i class="fas fa-recycle" aria-hidden="true"></i>
-                    </div>
-                    <h3>Desarrollo sostenible</h3>
-                    <p>Prácticas comerciales sanas, buena gestión del recurso humano, financiero y naturales que fomenten un equilibrio en nuestras operaciones.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+                <div class="categorias-container">
+                    <!-- Línea: Nutrición -->
+                    <div class="categoria">
+                        <div class="categoria-header">
+                            <div class="categoria-titulo">
+                                <i class="fas fa-apple-alt categoria-icono" aria-hidden="true"></i>
+                                Nutrición
+                            </div>
+                        </div>
+                        <div class="productos-grid">
+                            <div class="producto-card" data-producto="kidmax" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/kidmax.png" alt="Kidmax - Jarabe multivitamínico infantil" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Kidmax</h3>
+                                    <p class="producto-descripcion">Jarabe multivitamínico con hierro y minerales para el
+                                        crecimiento infantil.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">120 mL</span>
+                                        <span class="presentacion">240 mL</span>
+                                    </div>
+                                </div>
+                            </div>
 
-    <!-- Contacto Section -->
-    <section id="contacto" class="contacto" role="region" aria-label="Contactar a Trifarma">
-        <div class="container">
-            <h2 class="section-title">Contáctanos</h2>
-            <p class="section-subtitle">Estamos aquí para atender tus consultas y necesidades</p>
-            
-            <div class="contacto-content">
-                <div class="contacto-form">
-                    <form id="formulario-contacto">
-                        <div class="form-group">
-                            <input type="text" id="nombre" placeholder="Nombre completo" required>
-                            <span class="error-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <input type="email" id="email" placeholder="Correo electrónico" required>
-                            <span class="error-message"></span>
-                        </div>
-                        <div class="form-group">
-                            <textarea id="mensaje" rows="5" placeholder="Tu mensaje" required></textarea>
-                            <span class="error-message"></span>
-                        </div>
-                        <button type="submit" class="btn">Enviar Mensaje</button>
-                    </form>
-                </div>
-                <div class="contacto-info">
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
-                        </div>
-                        <div class="info-content">
-                            <h3>Dirección</h3>
-                            <p>31 avenida 10-33 zona 7 Colonia Centro América, Ciudad de Guatemala, Guatemala</p>
+                            <div class="producto-card" data-producto="duopack" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/duopack.png" alt="Kidmax Duopack - Combo especial" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Kidmax Duopack</h3>
+                                    <p class="producto-descripcion">Combo especial con presentaciones de 120mL y 240mL.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion destacada">Pack 120 mL + 240 mL</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="producto-card" data-producto="viotrof" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/viotrof.png" alt="Viotrof - Jarabe antianémico" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Viotrof</h3>
+                                    <p class="producto-descripcion">Jarabe antianémico con hierro y ácido fólico.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">120 mL</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-phone" aria-hidden="true"></i>
+
+                    <!-- Línea: Antiasténico -->
+                    <div class="categoria">
+                        <div class="categoria-header">
+                            <div class="categoria-titulo">
+                                <i class="fas fa-battery-full categoria-icono" aria-hidden="true"></i>
+                                Antiasténico
+                            </div>
                         </div>
-                        <div class="info-content">
-                            <h3>Teléfono</h3>
-                            <p>+502 2508 0642</p>
+                        <div class="productos-grid">
+                            <div class="producto-card" data-producto="enerking" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/enerking.png" alt="Enerking - Suplemento vitamínico" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Enerking</h3>
+                                    <p class="producto-descripcion">Suplemento vitamínico para energía y vitalidad.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">30 cápsulas</span>
+                                        <span class="presentacion">60 cápsulas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="producto-card" data-producto="ginsenvit" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/ginsenvit.png" alt="Ginsenvit - Energizante natural" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Ginsenvit</h3>
+                                    <p class="producto-descripcion">Energizante natural con ginseng y vitaminas.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">15 flaconetes</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-envelope" aria-hidden="true"></i>
+
+                    <!-- Línea: Inmunología -->
+                    <div class="categoria">
+                        <div class="categoria-header">
+                            <div class="categoria-titulo">
+                                <i class="fas fa-shield-alt categoria-icono" aria-hidden="true"></i>
+                                Inmunología
+                            </div>
                         </div>
-                        <div class="info-content">
-                            <h3>Email</h3>
-                            <p>info@trifarma.com</p>
+                        <div class="productos-grid">
+                            <div class="producto-card" data-producto="starsingrip" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/starsingrip.png" alt="Starsingrip - Solución inmunológica" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Starsingrip</h3>
+                                    <p class="producto-descripcion">Solución oral con vitaminas A, D, E, C y Zinc para
+                                        defensas.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">15 flaconetes</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="producto-card" data-producto="argking" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/argking.png" alt="Argking - Solución para bienestar" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Argking</h3>
+                                    <p class="producto-descripcion">Solución oral para bienestar general y defensas.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">15 flaconetes</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <div class="info-icon">
-                            <i class="fas fa-clock" aria-hidden="true"></i>
+
+                    <!-- Línea: Analgésico -->
+                    <div class="categoria">
+                        <div class="categoria-header">
+                            <div class="categoria-titulo">
+                                <i class="fas fa-pills categoria-icono" aria-hidden="true"></i>
+                                Analgésico
+                            </div>
                         </div>
-                        <div class="info-content">
-                            <h3>Horario de Atención</h3>
-                            <p>Lunes a Viernes: 8:00 AM - 5:00 PM</p>
+                        <div class="productos-grid">
+                            <div class="producto-card" data-producto="dexketoprofeno" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/dexketoprofeno.png" alt="Dexketoprofeno - Analgésico y antiinflamatorio" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Dexketoprofeno</h3>
+                                    <p class="producto-descripcion">Analgésico y antiinflamatorio para dolor agudo y
+                                        moderado.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">10 sachets</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="producto-card" data-producto="ortak" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/ortak.png" alt="Ortak - Inyectable analgésico" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Ortak</h3>
+                                    <p class="producto-descripcion">Dexketoprofeno en ampollas inyectables para aplicación
+                                        intramuscular.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">1 ampolla</span>
+                                        <span class="presentacion">3 ampollas</span>
+                                        <span class="presentacion">100 ampollas</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="producto-card" data-producto="dexketoprofeno_vitaminado" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/dexketoprofeno-vitaminado.png" alt="Dexketoprofeno + Complejo B - Analgésico vitaminado" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">Dexketoprofeno + Complejo B</h3>
+                                    <p class="producto-descripcion">Analgésico y antiinflamatorio vitaminado para dolor
+                                        agudo y moderado.</p>
+                                    <div class="producto-presentaciones">
+                                        <span class="presentacion">20 tabletas</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Valores Section -->
+        <section id="valores" class="valores" role="region" aria-label="Valores de Trifarma">
+            <div class="container">
+                <h2 class="section-title">Nuestros Valores</h2>
+                <p class="section-subtitle">Principios que guían nuestro compromiso con la salud y bienestar</p>
+
+                <div class="valores-grid">
+                    <div class="valor-card">
+                        <div class="valor-icon">
+                            <i class="fas fa-balance-scale" aria-hidden="true"></i>
+                        </div>
+                        <h3>Integridad</h3>
+                        <p>Ética y transparencia cumpliendo normas sanitarias y legales actuando con honestidad y
+                            priorizando el bienestar de las personas.</p>
+                    </div>
+                    <div class="valor-card">
+                        <div class="valor-icon">
+                            <i class="fas fa-users" aria-hidden="true"></i>
+                        </div>
+                        <h3>Compromiso con los colaboradores</h3>
+                        <p>Valoración y crecimiento de nuestros colaboradores, potencializando el talento humano para el
+                            aprovechamiento del bien común.</p>
+                    </div>
+                    <div class="valor-card">
+                        <div class="valor-icon">
+                            <i class="fas fa-recycle" aria-hidden="true"></i>
+                        </div>
+                        <h3>Desarrollo sostenible</h3>
+                        <p>Prácticas comerciales sanas, buena gestión del recurso humano, financiero y naturales que
+                            fomenten un equilibrio en nuestras operaciones.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contacto Section -->
+        <section id="contacto" class="contacto" role="region" aria-label="Contactar a Trifarma">
+            <div class="container">
+                <h2 class="section-title">Contáctanos</h2>
+                <p class="section-subtitle">Estamos aquí para atender tus consultas y necesidades</p>
+
+                <div class="contacto-content">
+                    <div class="contacto-form">
+                        <form id="formulario-contacto" action="send.php" method="POST" novalidate>
+                            <!-- Campo honeypot para bots -->
+                            <div class="sr-only" aria-hidden="true">
+                                <label for="url">Dejar este campo vacío</label>
+                                <input type="text" id="url" name="url" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="nombre" class="sr-only">Nombre completo</label>
+                                <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required
+                                    minlength="2" maxlength="100" aria-required="true">
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="email" class="sr-only">Correo electrónico</label>
+                                <input type="email" id="email" name="email" placeholder="Correo electrónico" required
+                                    maxlength="150" aria-required="true">
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="mensaje" class="sr-only">Tu mensaje</label>
+                                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Tu mensaje" required
+                                    minlength="10" maxlength="2000" aria-required="true"></textarea>
+                                <span class="error-message" aria-live="polite"></span>
+                            </div>
+                            <button type="submit" class="btn">
+                                <span class="btn-text">Enviar Mensaje</span>
+                                <span class="btn-loading" style="display: none;">
+                                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Enviando...
+                                </span>
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="contacto-info">
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Dirección</h3>
+                                <p>31 avenida 10-33 zona 7 Colonia Centro América, Ciudad de Guatemala, Guatemala</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-phone" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Teléfono</h3>
+                                <p>+502 2508 0642</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Email</h3>
+                                <p>info@drogueriatrifarma.com</p>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon">
+                                <i class="fas fa-clock" aria-hidden="true"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Horario de Atención</h3>
+                                <p>Lunes a Viernes: 8:00 AM - 5:00 PM</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
     <footer class="footer" role="contentinfo">
@@ -352,7 +485,7 @@
                     <h2>Trifarma</h2>
                     <p>Cuidamos tu salud con calidad y confianza.</p>
                     <div class="footer-logo">
-                        <img src="./img/logo.png" alt="Trifarma" width="120">
+                        <img src="./img/logo.png" alt="Trifarma" width="120" loading="lazy">
                     </div>
                 </div>
                 <div class="footer-section">
@@ -360,7 +493,7 @@
                     <ul>
                         <li><a href="#inicio">Inicio</a></li>
                         <li><a href="#nosotros">Nosotros</a></li>
-                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="#lineas-terapeuticas">Líneas Terapéuticas</a></li>
                         <li><a href="#valores">Valores</a></li>
                         <li><a href="#contacto">Contacto</a></li>
                     </ul>
@@ -368,9 +501,9 @@
                 <div class="footer-section">
                     <h3>Síguenos</h3>
                     <div class="social-links">
-                        <a href="#" aria-label="Facebook de Trifarma"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Instagram de Trifarma"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn de Trifarma"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" aria-label="Facebook de Trifarma"><i class="fab fa-facebook-f" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="Instagram de Trifarma"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+                        <a href="#" aria-label="LinkedIn de Trifarma"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
                     </div>
                 </div>
             </div>
@@ -380,6 +513,119 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- Modal para detalles del producto -->
+    <div class="modal" id="productoModal" aria-hidden="true" aria-labelledby="modalNombre" aria-describedby="modalDescripcion">
+        <div class="modal-content">
+            <div class="modal-imagen">
+                <img id="modalImagen" src="" alt="" loading="eager">
+            </div>
+            <div class="modal-info">
+                <button class="modal-close" id="modalClose" aria-label="Cerrar modal">&times;</button>
+                <h2 class="modal-nombre" id="modalNombre"></h2>
+                <div class="modal-tipo" id="modalTipo"></div>
+                <p class="modal-descripcion" id="modalDescripcion"></p>
+
+                <div class="modal-presentaciones" id="modalPresentaciones"></div>
+
+                <div class="modal-beneficios">
+                    <h4 class="beneficios-titulo">Beneficios Principales</h4>
+                    <ul class="beneficios-lista" id="modalBeneficios"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="script.js" defer></script>
+    <script src="productos-modal.js" defer></script>
+
+    <!-- Estilos inline para notificaciones -->
+    <style>
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 10000;
+            max-width: 400px;
+            animation: slideIn 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+        
+        .notification-success {
+            background: var(--color-exito);
+        }
+        
+        .notification-error {
+            background: var(--color-error);
+        }
+        
+        .notification-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .notification-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .slideOut {
+            animation: slideOut 0.3s ease forwards;
+        }
+        
+        @keyframes slideOut {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 6px;
+            background: var(--color-azul-oscuro);
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 10000;
+            transition: top 0.3s;
+        }
+        
+        .skip-link:focus {
+            top: 6px;
+        }
+    </style>
 </body>
+
 </html>

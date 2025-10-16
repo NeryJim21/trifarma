@@ -1,0 +1,813 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trifarma - Líneas Terapéuticas</title>
+    <style>
+        :root {
+            --color-azul-oscuro: #004AAD;
+            --color-azul-intermedio: #009FE3;
+            --color-azul-claro: #00C2FF;
+            --color-amarillo: #FFD700;
+            --color-blanco: #FFFFFF;
+            --color-gris-claro: #F8F9FA;
+            --color-texto: #212529;
+            --color-texto-claro: #6C757D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-gris-claro);
+            padding: 20px;
+        }
+
+        .lineas-terapeuticas {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: var(--color-azul-oscuro);
+            margin-bottom: 3rem;
+            font-weight: 600;
+        }
+
+        .categorias-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .categoria {
+            background: var(--color-blanco);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+        }
+
+        .categoria-header {
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 3px solid var(--color-amarillo);
+        }
+
+        .categoria-titulo {
+            font-size: 1.8rem;
+            color: var(--color-azul-oscuro);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-weight: 600;
+        }
+
+        .categoria-icono {
+            font-size: 2rem;
+            color: var(--color-amarillo);
+        }
+
+        .productos-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .producto-card {
+            background: var(--color-blanco);
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .producto-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            border-color: var(--color-amarillo);
+        }
+
+        .producto-imagen {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--color-gris-claro), var(--color-blanco));
+            padding: 1rem;
+        }
+
+        .producto-imagen img {
+            max-width: 80%;
+            max-height: 80%;
+            object-fit: contain;
+            transition: transform 0.3s ease;
+        }
+
+        .producto-card:hover .producto-imagen img {
+            transform: scale(1.05);
+        }
+
+        .producto-info {
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .producto-nombre {
+            font-size: 1.3rem;
+            color: var(--color-azul-oscuro);
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .producto-descripcion {
+            color: var(--color-texto-claro);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            line-height: 1.5;
+        }
+
+        .producto-presentaciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            justify-content: center;
+        }
+
+        .presentacion {
+            background: var(--color-gris-claro);
+            color: var(--color-azul-oscuro);
+            padding: 0.3rem 0.8rem;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 500;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+        }
+
+        .modal-content {
+            background: var(--color-blanco);
+            border-radius: 20px;
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: scale(0.9);
+            transition: transform 0.3s ease;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-imagen {
+            background: linear-gradient(135deg, var(--color-gris-claro), var(--color-blanco));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3rem;
+        }
+
+        .modal-imagen img {
+            max-width: 100%;
+            max-height: 70vh;
+            object-fit: contain;
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+        }
+
+        .modal-info {
+            padding: 3rem;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            overflow-y: auto;
+            max-height: 90vh;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: var(--color-gris-claro);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+        }
+
+        .modal-close:hover {
+            background: var(--color-amarillo);
+            transform: rotate(90deg);
+        }
+
+        .modal-nombre {
+            font-size: 2.5rem;
+            color: var(--color-azul-oscuro);
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .modal-tipo {
+            font-size: 1.2rem;
+            color: var(--color-azul-intermedio);
+            margin-bottom: 2rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .modal-descripcion {
+            color: var(--color-texto-claro);
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .modal-detalles {
+            margin-bottom: 2rem;
+        }
+
+        .detalle-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .detalle-item i {
+            color: var(--color-amarillo);
+            margin-right: 1rem;
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .modal-presentaciones {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .modal-presentacion {
+            background: linear-gradient(135deg, var(--color-azul-claro), var(--color-azul-intermedio));
+            color: var(--color-blanco);
+            padding: 0.8rem 1.5rem;
+            border-radius: 25px;
+            font-weight: 600;
+            box-shadow: 0 5px 15px rgba(0, 74, 173, 0.3);
+        }
+
+        .modal-beneficios {
+            background: var(--color-gris-claro);
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin-top: auto;
+        }
+
+        .beneficios-titulo {
+            color: var(--color-azul-oscuro);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .beneficios-lista {
+            list-style: none;
+        }
+
+        .beneficios-lista li {
+            padding: 0.5rem 0;
+            color: var(--color-texto-claro);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .beneficios-lista li::before {
+            content: '✓';
+            color: var(--color-amarillo);
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+
+        /* Scroll personalizado para modal */
+        .modal-info::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .modal-info::-webkit-scrollbar-track {
+            background: var(--color-gris-claro);
+            border-radius: 10px;
+        }
+
+        .modal-info::-webkit-scrollbar-thumb {
+            background: var(--color-azul-intermedio);
+            border-radius: 10px;
+        }
+
+        .modal-info::-webkit-scrollbar-thumb:hover {
+            background: var(--color-azul-oscuro);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .modal-content {
+                grid-template-columns: 1fr;
+                width: 95%;
+                max-height: 95vh;
+                overflow-y: auto;
+            }
+            
+            .modal-imagen {
+                padding: 2rem;
+                max-height: 40vh;
+            }
+            
+            .modal-imagen img {
+                max-height: 30vh;
+            }
+            
+            .modal-info {
+                padding: 2rem;
+                max-height: none;
+            }
+            
+            .modal-nombre {
+                font-size: 2rem;
+            }
+            
+            .productos-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Sección Líneas Terapéuticas -->
+    <section id="lineas-terapeuticas" class="lineas-terapeuticas">
+        <h2 class="section-title">Líneas Terapéuticas</h2>
+        
+        <div class="categorias-container">
+            <!-- Línea: Nutrición -->
+            <div class="categoria">
+                <div class="categoria-header">
+                    <div class="categoria-titulo">
+                        <i class="fas fa-apple-alt categoria-icono"></i>
+                        Nutrición
+                    </div>
+                </div>
+                <div class="productos-grid">
+                    <div class="producto-card" data-producto="kidmax">
+                        <div class="producto-imagen">
+                            <img src="./img/kidmax.png" alt="Kidmax">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Kidmax</h3>
+                            <p class="producto-descripcion">Jarabe multivitamínico con hierro y minerales para el crecimiento infantil.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">120 mL</span>
+                                <span class="presentacion">240 mL</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="producto-card" data-producto="duopack">
+                        <div class="producto-imagen">
+                            <img src="./img/duopack.png" alt="Kidmax Duopack">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Kidmax Duopack</h3>
+                            <p class="producto-descripcion">Combo especial con presentaciones de 120mL y 240mL.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">Pack Especial</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="producto-card" data-producto="viotrof">
+                        <div class="producto-imagen">
+                            <img src="./img/viotrof.png" alt="Viotrof">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Viotrof</h3>
+                            <p class="producto-descripcion">Jarabe antianémico con hierro y ácido fólico.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">120 mL</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Línea: Antiasténico -->
+            <div class="categoria">
+                <div class="categoria-header">
+                    <div class="categoria-titulo">
+                        <i class="fas fa-battery-full categoria-icono"></i>
+                        Antiasténico
+                    </div>
+                </div>
+                <div class="productos-grid">
+                    <div class="producto-card" data-producto="enerking">
+                        <div class="producto-imagen">
+                            <img src="./img/enerking.png" alt="Enerking">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Enerking</h3>
+                            <p class="producto-descripcion">Suplemento vitamínico para energía y vitalidad.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">30 cápsulas</span>
+                                <span class="presentacion">60 cápsulas</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="producto-card" data-producto="ginsenvit">
+                        <div class="producto-imagen">
+                            <img src="./img/ginsenvit.png" alt="Ginsenvit">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Ginsenvit</h3>
+                            <p class="producto-descripcion">Energizante natural con ginseng y vitaminas.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">15 flaconetes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Línea: Inmunología -->
+            <div class="categoria">
+                <div class="categoria-header">
+                    <div class="categoria-titulo">
+                        <i class="fas fa-shield-alt categoria-icono"></i>
+                        Inmunología
+                    </div>
+                </div>
+                <div class="productos-grid">
+                    <div class="producto-card" data-producto="starsingrip">
+                        <div class="producto-imagen">
+                            <img src="./img/starsingrip.png" alt="Starsingrip">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Starsingrip</h3>
+                            <p class="producto-descripcion">Solución oral con vitaminas A, D, E, C y Zinc para defensas.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">15 flaconetes</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="producto-card" data-producto="argking">
+                        <div class="producto-imagen">
+                            <img src="./img/argking.png" alt="Argking">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Argking</h3>
+                            <p class="producto-descripcion">Solución oral para bienestar general y defensas.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">15 flaconetes</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Línea: Analgésico -->
+            <div class="categoria">
+                <div class="categoria-header">
+                    <div class="categoria-titulo">
+                        <i class="fas fa-pills categoria-icono"></i>
+                        Analgésico
+                    </div>
+                </div>
+                <div class="productos-grid">
+                    <div class="producto-card" data-producto="dexketoprofeno">
+                        <div class="producto-imagen">
+                            <img src="./img/dexketoprofeno.png" alt="Dexketoprofeno">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Dexketoprofeno</h3>
+                            <p class="producto-descripcion">Analgésico y antiinflamatorio para dolor agudo y moderado.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">10 sachets</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="producto-card" data-producto="ortak">
+                        <div class="producto-imagen">
+                            <img src="./img/ortak.png" alt="Ortak">
+                        </div>
+                        <div class="producto-info">
+                            <h3 class="producto-nombre">Ortak</h3>
+                            <p class="producto-descripcion">Dexketoprofeno en ampollas inyectables para aplicación intramuscular.</p>
+                            <div class="producto-presentaciones">
+                                <span class="presentacion">1 ampolla</span>
+                                <span class="presentacion">3 ampollas</span>
+                                <span class="presentacion">100 ampollas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal para detalles del producto -->
+    <div class="modal" id="productoModal">
+        <div class="modal-content">
+            <div class="modal-imagen">
+                <img id="modalImagen" src="" alt="">
+            </div>
+            <div class="modal-info">
+                <button class="modal-close" id="modalClose">&times;</button>
+                <h2 class="modal-nombre" id="modalNombre"></h2>
+                <div class="modal-tipo" id="modalTipo"></div>
+                <p class="modal-descripcion" id="modalDescripcion"></p>
+                
+                <div class="modal-detalles">
+                    <div class="detalle-item">
+                        <i class="fas fa-cube"></i>
+                        <span id="modalPresentacion">XXXX - Información de presentación</span>
+                    </div>
+                    <div class="detalle-item">
+                        <i class="fas fa-list-alt"></i>
+                        <span id="modalCategoria"></span>
+                    </div>
+                    <div class="detalle-item">
+                        <i class="fas fa-flask"></i>
+                        <span id="modalFormula">XXXX - Información de fórmula</span>
+                    </div>
+                    <div class="detalle-item">
+                        <i class="fas fa-user-md"></i>
+                        <span id="modalUso">XXXX - Información de uso</span>
+                    </div>
+                </div>
+                
+                <div class="modal-presentaciones" id="modalPresentaciones"></div>
+                
+                <div class="modal-beneficios">
+                    <h4 class="beneficios-titulo">Beneficios Principales</h4>
+                    <ul class="beneficios-lista" id="modalBeneficios"></ul>
+                </div>
+
+                <div class="modal-beneficios">
+                    <h4 class="beneficios-titulo">XXXX - Título información adicional</h4>
+                    <p style="color: var(--color-texto-claro); line-height: 1.6;">
+                        XXXX - Aquí puedes agregar información adicional sobre el producto, 
+                        indicaciones específicas, precauciones o cualquier otro dato relevante 
+                        que quieras destacar para los usuarios.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Datos de los productos
+        const productosData = {
+            kidmax: {
+                nombre: "Kidmax",
+                tipo: "JARABE MULTIVITAMÍNICO",
+                descripcion: "Jarabe multivitamínico con hierro y minerales especialmente formulado para el crecimiento y desarrollo infantil. Proporciona los nutrientes esenciales que los niños necesitan para un desarrollo saludable.",
+                imagen: "./img/kidmax.png",
+                categoria: "Nutrición",
+                presentaciones: ["120 mL", "240 mL"],
+                beneficios: [
+                    "Fórmula especial para el crecimiento infantil",
+                    "Contiene hierro y minerales esenciales",
+                    "Sabor agradable para mejor aceptación",
+                    "Ayuda al desarrollo cognitivo",
+                    "Fortalece el sistema inmunológico"
+                ]
+            },
+            duopack: {
+                nombre: "Kidmax Duopack",
+                tipo: "COMBO ESPECIAL",
+                descripcion: "Pack especial que incluye Kidmax en presentación de 120 mL y 240 mL. Ideal para mayor comodidad y economía, asegurando el suministro continuo del multivitamínico infantil.",
+                imagen: "./img/duopack.png",
+                categoria: "Nutrición",
+                presentaciones: ["Pack 120 mL + 240 mL"],
+                beneficios: [
+                    "Ahorro económico significativo",
+                    "Suministro continuo garantizado",
+                    "Ideal para tratamiento prolongado",
+                    "Presentaciones para diferentes necesidades",
+                    "Máxima conveniencia"
+                ]
+            },
+            viotrof: {
+                nombre: "Viotrof",
+                tipo: "JARABE ANTIANÉMICO",
+                descripcion: "Jarabe antianémico con hierro y ácido fólico para el tratamiento y prevención de la anemia. Formulado para una óptima absorción y mínimos efectos secundarios.",
+                imagen: "./img/viotrof.png",
+                categoria: "Nutrición",
+                presentaciones: ["Frasco 120 mL"],
+                beneficios: [
+                    "Combate y previene la anemia",
+                    "Hierro de alta biodisponibilidad",
+                    "Ácido fólico para mejor absorción",
+                    "Sabor agradable",
+                    "Efectivo en niños y adultos"
+                ]
+            },
+            enerking: {
+                nombre: "Enerking",
+                tipo: "SUPLEMENTO VITAMÍNICO",
+                descripcion: "Suplemento vitamínico completo que proporciona energía y vitalidad para el día a día. Ideal para personas con alta demanda física y mental.",
+                imagen: "./img/enerking.png",
+                categoria: "Antiasténico",
+                presentaciones: ["30 cápsulas", "60 cápsulas"],
+                beneficios: [
+                    "Aumenta los niveles de energía",
+                    "Mejora el rendimiento físico",
+                    "Combate la fatiga mental",
+                    "Fórmula completa de vitaminas",
+                    "Sin efectos estimulantes"
+                ]
+            },
+            ginsenvit: {
+                nombre: "Ginsenvit",
+                tipo: "ENERGIZANTE NATURAL",
+                descripcion: "Suplemento energético con ginseng y vitaminas para aumentar el rendimiento físico y mental. Potencia tu energía de forma natural y sostenida.",
+                imagen: "./img/ginsenvit.png",
+                categoria: "Antiasténico",
+                presentaciones: ["15 flaconetes"],
+                beneficios: [
+                    "Energía natural con ginseng",
+                    "Mejora el rendimiento mental",
+                    "Aumenta la resistencia física",
+                    "Efecto sostenido sin rebote",
+                    "Fórmula 100% natural"
+                ]
+            },
+            starsingrip: {
+                nombre: "Starsingrip",
+                tipo: "SOLUCIÓN INMUNOLÓGICA",
+                descripcion: "Solución oral con vitaminas A, D, E, C y Zinc especialmente formulada para fortalecer el sistema inmunológico y proteger contra infecciones.",
+                imagen: "./img/starsingrip.png",
+                categoria: "Inmunología",
+                presentaciones: ["15 flaconetes"],
+                beneficios: [
+                    "Fortalece las defensas naturales",
+                    "Combinación de vitaminas esenciales",
+                    "Protección contra infecciones",
+                    "Fórmula de rápida absorción",
+                    "Ideal para temporada de gripe"
+                ]
+            },
+            argking: {
+                nombre: "Argking",
+                tipo: "SOLUCIÓN PARA BIENESTAR",
+                descripcion: "Solución oral para el bienestar general con fórmula equilibrada de nutrientes esenciales que apoyan la salud integral del organismo.",
+                imagen: "./img/argking.png",
+                categoria: "Inmunología",
+                presentaciones: ["15 flaconetes"],
+                beneficios: [
+                    "Bienestar general integral",
+                    "Fórmula balanceada de nutrientes",
+                    "Apoyo al sistema inmunológico",
+                    "Mejora la vitalidad",
+                    "Fácil administración"
+                ]
+            },
+            dexketoprofeno: {
+                nombre: "Dexketoprofeno",
+                tipo: "ANALGÉSICO Y ANTIINFLAMATORIO",
+                descripcion: "Analgésico y antiinflamatorio no esteroideo para el alivio del dolor agudo y moderado. De acción rápida y efectiva.",
+                imagen: "./img/dexketoprofeno.png",
+                categoria: "Analgésico",
+                presentaciones: ["10 sachets"],
+                beneficios: [
+                    "Alivio rápido del dolor",
+                    "Acción antiinflamatoria",
+                    "Eficaz en dolor agudo",
+                    "Fácil administración",
+                    "Buen perfil de seguridad"
+                ]
+            },
+            ortak: {
+                nombre: "Ortak",
+                tipo: "INYECTABLE ANALGÉSICO",
+                descripcion: "Dexketoprofeno en presentación inyectable para aplicación intramuscular. Ideal para casos que requieren acción rápida y efectiva del analgésico.",
+                imagen: "./img/ortak.png",
+                categoria: "Analgésico",
+                presentaciones: ["1 ampolla + jeringa", "3 ampollas + jeringas", "Panal 100 ampollas"],
+                beneficios: [
+                    "Acción analgésica rápida",
+                    "Aplicación intramuscular",
+                    "Efectivo en dolor severo",
+                    "Presentación estéril",
+                    "Incluye jeringas desechables"
+                ]
+            }
+        };
+
+        // Funcionalidad del modal
+        document.addEventListener('DOMContentLoaded', function() {
+            const modal = document.getElementById('productoModal');
+            const modalClose = document.getElementById('modalClose');
+            const productoCards = document.querySelectorAll('.producto-card');
+
+            // Abrir modal al hacer click en producto
+            productoCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    const productoId = this.getAttribute('data-producto');
+                    const producto = productosData[productoId];
+                    
+                    if (producto) {
+                        document.getElementById('modalImagen').src = producto.imagen;
+                        document.getElementById('modalNombre').textContent = producto.nombre;
+                        document.getElementById('modalTipo').textContent = producto.tipo;
+                        document.getElementById('modalDescripcion').textContent = producto.descripcion;
+                        document.getElementById('modalCategoria').textContent = producto.categoria;
+                        
+                        // Presentaciones
+                        const presentacionesContainer = document.getElementById('modalPresentaciones');
+                        presentacionesContainer.innerHTML = '';
+                        producto.presentaciones.forEach(presentacion => {
+                            const span = document.createElement('span');
+                            span.className = 'modal-presentacion';
+                            span.textContent = presentacion;
+                            presentacionesContainer.appendChild(span);
+                        });
+                        
+                        // Beneficios
+                        const beneficiosContainer = document.getElementById('modalBeneficios');
+                        beneficiosContainer.innerHTML = '';
+                        producto.beneficios.forEach(beneficio => {
+                            const li = document.createElement('li');
+                            li.textContent = beneficio;
+                            beneficiosContainer.appendChild(li);
+                        });
+                        
+                        modal.classList.add('active');
+                        document.body.style.overflow = 'hidden';
+                    }
+                });
+            });
+
+            // Cerrar modal
+            modalClose.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+
+            // Cerrar modal al hacer click fuera del contenido
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+
+            // Cerrar modal con tecla ESC
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+    </script>
+</body>
+</html>
