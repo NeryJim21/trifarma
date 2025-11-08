@@ -18,7 +18,7 @@ header('X-XSS-Protection: 1; mode=block');
 // Configuración de la aplicación
 $config = [
     // Email de destino
-    'destinatario' => 'info@trifarma.com',
+    'destinatario' => 'info@drogueriatrifarma.com',
     
     // Asunto del email
     'asunto' => 'Nuevo mensaje desde Trifarma Web',
@@ -244,7 +244,7 @@ function enviarEmail($datos, $config) {
     
     // Cabeceras de seguridad
     $headers = [
-        'From: Trifarma Web <no-reply@trifarma.com>',
+        'From: Trifarma Web <no-reply@drogueriatrifarma.com>',
         'Reply-To: ' . $datos['email'],
         'Content-Type: text/html; charset=UTF-8',
         'X-Mailer: PHP/' . phpversion(),

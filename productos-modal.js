@@ -5,7 +5,7 @@
 // Datos de los productos optimizados
 const productosData = {
     kidmax: {
-        nombre: "Kidmax",
+        nombre: "KIDMAX",
         tipo: "JARABE MULTIVITAMÍNICO",
         descripcion: "Especialmente formulado para el crecimiento y desarrollo infantil.",
         imagen: "./img/kidmax.png",
@@ -20,22 +20,23 @@ const productosData = {
         ]
     },
     duopack: {
-        nombre: "Kidmax Duopack",
+        nombre: "KIDMAX DUOPACK",
         tipo: "COMBO ESPECIAL",
-        descripcion: "Pack especial que incluye Kidmax en presentación de 120 mL y 240 mL. Ideal para mayor comodidad y economía.",
+        descripcion: "Duopack especial que incluye Kidmax en presentación de 120 mL y 240 mL. Ideal para mayor comodidad y economía.",
         imagen: "./img/duopack.png",
         categoria: "Nutrición",
         presentaciones: ["Pack 120 mL + 240 mL"],
         beneficios: [
-            "Ahorro económico significativo",
-            "Suministro continuo garantizado",
-            "Ideal para tratamiento prolongado",
-            "Presentaciones para diferentes necesidades",
-            "Máxima conveniencia"
+            "Fortalece el sistema inmunológico",
+            "Favorece la síntesis de proteínas y tejidos",
+            "Estimula el apetito",
+            "Apoyo al desarrollo físico y cognitivo",
+            "Energía constante para el día a día",
+            "Comodidad y economía"
         ]
     },
     viotrof: {
-        nombre: "Viotrof",
+        nombre: "VIOTROF",
         tipo: "JARABE ANTIANÉMICO",
         descripcion: "Jarabe antianémico con hierro y ácido fólico para el tratamiento y prevención de la anemia.",
         imagen: "./img/viotrof.png",
@@ -50,7 +51,7 @@ const productosData = {
         ]
     },
     enerking: {
-        nombre: "Enerking",
+        nombre: "ENERKING H4",
         tipo: "SUPLEMENTO VITAMÍNICO",
         descripcion: "Suplemento vitamínico completo que proporciona energía y vitalidad para el día a día.",
         imagen: "./img/enerking.png",
@@ -64,9 +65,9 @@ const productosData = {
         ]
     },
     ginsenvit: {
-        nombre: "Ginsenvit",
+        nombre: "GINSENVIT",
         tipo: "ENERGIZANTE NATURAL",
-        descripcion: "Suplemento energético con ginseng y vitaminas para aumentar el rendimiento físico y mental.",
+        descripcion: "Suplemento vitaminico con ginseng para aumentar el rendimiento físico y mental.",
         imagen: "./img/ginsenvit.png",
         categoria: "Antiasténico",
         presentaciones: ["15 flaconetes"],
@@ -78,7 +79,7 @@ const productosData = {
         ]
     },
     starsingrip: {
-        nombre: "Starsingrip",
+        nombre: "STARSINGRIP",
         tipo: "SOLUCIÓN INMUNOLÓGICA",
         descripcion: "Solución oral con vitaminas A, D, E, C y Zinc especialmente formulada para fortalecer el sistema inmunológico.",
         imagen: "./img/starsingrip.png",
@@ -92,7 +93,7 @@ const productosData = {
         ]
     },
     argking: {
-        nombre: "Argking",
+        nombre: "ARGKING",
         tipo: "SOLUCIÓN PARA BIENESTAR",
         descripcion: "Solución oral para el bienestar general con fórmula equilibrada de nutrientes esenciales.",
         imagen: "./img/argking.png",
@@ -106,14 +107,15 @@ const productosData = {
         ]
     },
     dexketoprofeno: {
-        nombre: "Dexketoprofeno Trifarma",
+        nombre: "DEXKETOPROFENO TRIFARMA",
         tipo: "ANALGÉSICO Y ANTIINFLAMATORIO",
         descripcion: "Analgésico y antiinflamatorio no esteroideo para el alivio del dolor agudo y moderado.",
         imagen: "./img/dexketoprofeno.png",
         categoria: "Analgésico",
         presentaciones: ["10 sachets"],
         beneficios: [
-            "Alivio rápido del dolor",
+            "Analgésico, antiinflamatorio y antipirético",
+            "Efectivo en dolor agudo de moderado a intenso",
             "Acción antiinflamatoria",
             "Eficaz en dolor agudo",
             "Fácil administración",
@@ -121,32 +123,35 @@ const productosData = {
         ]
     },
     ortak: {
-        nombre: "Ortak",
+        nombre: "ORTAK",
         tipo: "INYECTABLE ANALGÉSICO",
         descripcion: "Dexketoprofeno en presentación inyectable para aplicación intramuscular.",
         imagen: "./img/ortak.png",
         categoria: "Analgésico",
         presentaciones: ["1 ampolla", "3 ampollas", "100 ampollas"],
         beneficios: [
-            "Acción analgésica rápida",
-            "Aplicación intramuscular",
+            "Analgésico, antiinflamatorio y antipirético",
+            "Efectivo en dolor agudo de moderado a intenso",
+            "De uso intramuscular e intravenosa",
             "Efectivo en dolor severo",
-            "Presentación estéril"
+            "Menos efectos secuntarios"
         ]
     },
     dexketoprofeno_vitaminado: {
-        nombre: "Dexketoprofeno + Complejo B",
+        nombre: "DEXKETOPROFENO + COMPLEJO B",
         tipo: "ANALGÉSICO Y ANTIINFLAMATORIO",
         descripcion: "Analgésico y antiinflamatorio vitaminado no esteroideo para el alivio del dolor agudo y moderado.",
         imagen: "./img/dexketoprofeno-vitaminado.png",
         categoria: "Analgésico",
         presentaciones: ["20 tabletas"],
         beneficios: [
-            "Alivio rápido del dolor",
+            "Analgésico, antiinflamatorio y antipirético",
+            "Efectivo en dolor agudo de moderado a intenso", 
             "Acción antiinflamatoria",
-            "Eficaz en dolor agudo",
+            "Complejo B neurotrópico para salud del sistema nervioso",
             "Fácil administración",
-            "Buen perfil de seguridad"
+            "Buen perfil de seguridad",
+            "Vitaminas B1, B6 y B12 con acción neuroprotectora"
         ]
     }
 };
