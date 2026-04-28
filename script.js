@@ -10,76 +10,86 @@ class MenuManager {
         this.nav = document.querySelector('.nav');
         this.body = document.body;
         this.isMenuOpen = false;
-        
+
+        if (!this.menuToggle || !this.nav) return;
+
         this.init();
     }
-    
+
     init() {
-        if (!this.menuToggle || !this.nav) return;
-        
         this.bindEvents();
+
+        // Estado inicial accesible
+        this.menuToggle.setAttribute('aria-expanded', 'false');
+        this.nav.setAttribute('aria-hidden', 'true');
     }
-    
+
     bindEvents() {
+        // Toggle
         this.menuToggle.addEventListener('click', () => this.toggleMenu());
-        
-        // Cerrar menú al hacer clic en enlaces
-        document.querySelectorAll('.nav a').forEach(link => {
-            link.addEventListener('click', () => {
-                if (this.isMenuOpen) this.closeMenu();
-            });
-        });
-        
-        // Cerrar menú al hacer clic fuera
-        document.addEventListener('click', (e) => {
-            if (this.isMenuOpen && 
-                !this.nav.contains(e.target) && 
-                !this.menuToggle.contains(e.target)) {
+
+        // Delegación para links
+        this.nav.addEventListener('click', (e) => {
+            if (e.target.closest('a') && this.isMenuOpen) {
                 this.closeMenu();
             }
         });
-        
-        // Cerrar menú con ESC
+
+        // Click fuera (optimizado)
+        document.addEventListener('click', (e) => {
+            if (!this.isMenuOpen) return;
+
+            if (
+                !this.nav.contains(e.target) &&
+                !this.menuToggle.contains(e.target)
+            ) {
+                this.closeMenu();
+            }
+        });
+
+        // ESC
         document.addEventListener('keydown', (e) => {
-            if (this.isMenuOpen && e.key === 'Escape') {
+            if (!this.isMenuOpen) return;
+
+            if (e.key === 'Escape') {
                 this.closeMenu();
                 this.menuToggle.focus();
             }
         });
     }
-    
+
     toggleMenu() {
-        if (this.isMenuOpen) {
-            this.closeMenu();
-        } else {
-            this.openMenu();
-        }
+        this.isMenuOpen ? this.closeMenu() : this.openMenu();
     }
-    
+
     openMenu() {
         this.nav.classList.add('active');
         this.menuToggle.setAttribute('aria-expanded', 'true');
+        this.nav.setAttribute('aria-hidden', 'false');
+
         this.body.style.overflow = 'hidden';
         this.isMenuOpen = true;
-        
-        // Cambiar icono
-        const icon = this.menuToggle.querySelector('i');
-        if (icon) {
-            icon.className = 'fas fa-times';
-        }
+
+        this.updateIcon(true);
     }
-    
+
     closeMenu() {
         this.nav.classList.remove('active');
         this.menuToggle.setAttribute('aria-expanded', 'false');
+        this.nav.setAttribute('aria-hidden', 'true');
+
         this.body.style.overflow = '';
         this.isMenuOpen = false;
-        
-        // Restaurar icono
+
+        this.updateIcon(false);
+    }
+
+    updateIcon(isOpen) {
         const icon = this.menuToggle.querySelector('i');
-        if (icon) {
-            icon.className = 'fas fa-bars';
-        }
+        if (!icon) return;
+
+        icon.classList.remove('fa-bars', 'fa-times');
+        icon.classList.add(isOpen ? 'fa-times' : 'fa-bars');
     }
 }
 
@@ -87,53 +97,77 @@ class MenuManager {
 class SmoothScroller {
     constructor() {
         this.header = document.querySelector('.header');
-        this.headerHeight = this.header ? this.header.offsetHeight : 70;
-        
+
         this.init();
     }
-    
+
     init() {
         this.bindEvents();
     }
-    
+
     bindEvents() {
         document.addEventListener('click', (e) => {
             const link = e.target.closest('a[href^="#"]');
             if (!link) return;
-            
-            this.handleLinkClick(e, link);
+
+            const href = link.getAttribute('href');
+
+            // Ignorar casos no válidos
+            if (!href || href === '#' || href.startsWith('#!')) return;
+
+            this.handleLinkClick(e, href);
         });
     }
-    
-    handleLinkClick(e, link) {
-        e.preventDefault();
-        
-        const targetId = link.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (!targetElement) return;
-        
-        // Cerrar menú móvil si está abierto
-        const nav = document.querySelector('.nav');
-        if (nav && nav.classList.contains('active')) {
-            nav.classList.remove('active');
-            document.body.style.overflow = '';
+
+    handleLinkClick(e, targetId) {
+        let targetElement;
+
+        try {
+            targetElement = document.querySelector(targetId);
+        } catch {
+            return; // evita crash por selector inválido
         }
-        
+
+        if (!targetElement) return;
+
+        e.preventDefault();
+
+        this.closeMobileMenuIfOpen();
         this.scrollToElement(targetElement);
     }
-    
+
+    getHeaderHeight() {
+        return this.header ? this.header.offsetHeight : 70;
+    }
+
     scrollToElement(element) {
-        const targetPosition = element.getBoundingClientRect().top + window.pageYOffset - this.headerHeight;
-        
+        const headerOffset = this.getHeaderHeight();
+
+        const targetPosition =
+            element.getBoundingClientRect().top +
+            window.pageYOffset -
+            headerOffset;
+
         window.scrollTo({
             top: targetPosition,
             behavior: 'smooth'
         });
-        
-        // Actualizar URL sin recargar
-        history.pushState(null, null, `#${element.id}`);
+
+        // Mejor UX: no contaminar historial
+        history.replaceState(null, null, `#${element.id}`);
+
+        // Accesibilidad: mover foco
+        element.setAttribute('tabindex', '-1');
+        element.focus({ preventScroll: true });
+    }
+
+    closeMobileMenuIfOpen() {
+        const nav = document.querySelector('.nav');
+
+        if (nav?.classList.contains('active')) {
+            nav.classList.remove('active');
+            document.body.style.overflow = '';
+        }
     }
 }
 
@@ -141,142 +175,223 @@ class SmoothScroller {
 class FormValidator {
     constructor() {
         this.contactForm = document.getElementById('formulario-contacto');
+
         this.fields = {
             nombre: {
                 element: document.getElementById('nombre'),
                 validate: (value) => {
-                    if (!value.trim()) return 'Este campo es obligatorio';
+                    if (!value) return 'Este campo es obligatorio';
                     if (value.length < 2) return 'Mínimo 2 caracteres';
                     if (value.length > 100) return 'Máximo 100 caracteres';
-                    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\-\.]+$/.test(value)) return 'Solo se permiten letras y espacios';
+                    if (!/^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s\-\.]+$/.test(value)) {
+                        return 'Solo se permiten letras';
+                    }
                     return null;
                 }
             },
-            email: {
-                element: document.getElementById('email'),
+
+            telefono: {
+                element: document.getElementById('telefono'),
                 validate: (value) => {
-                    if (!value.trim()) return 'Este campo es obligatorio';
-                    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    if (!emailPattern.test(value)) return 'Email no válido';
-                    if (value.length > 150) return 'Máximo 150 caracteres';
+                    if (!value) return 'Este campo es obligatorio';
+
+                    const phonePattern = /^[2-9]\d{3}-\d{4}$/;
+
+                    if (!phonePattern.test(value)) {
+                        return 'Formato inválido (####-####)';
+                    }
+
                     return null;
                 }
             },
+
+            departamento: {
+                element: document.getElementById('departamento'),
+                validate: (value) => {
+                    if (!value) return 'Selecciona un departamento';
+                    return null;
+                }
+            },
+
             mensaje: {
                 element: document.getElementById('mensaje'),
                 validate: (value) => {
-                    if (!value.trim()) return 'Este campo es obligatorio';
+                    if (!value) return 'Este campo es obligatorio';
                     if (value.length < 10) return 'Mínimo 10 caracteres';
                     if (value.length > 2000) return 'Máximo 2000 caracteres';
                     return null;
                 }
             }
         };
-        
+
         this.init();
     }
-    
+
     init() {
         if (!this.contactForm) return;
-        
+
+        this.loadDepartamentos();
+
         this.bindEvents();
     }
-    
+
     bindEvents() {
-        // Validación en tiempo real
         Object.values(this.fields).forEach(({ element, validate }) => {
             if (!element) return;
-            
-            element.addEventListener('blur', () => this.validateField(element, validate));
-            element.addEventListener('input', () => this.clearFieldError(element));
+
+            element.addEventListener('blur', () =>
+                this.validateField(element, validate)
+            );
+
+            element.addEventListener('input', () =>
+                this.clearFieldError(element)
+            );
+
+            element.addEventListener('change', () =>
+                this.validateField(element, validate)
+            );
         });
-        
-        // Envío del formulario
+
         this.contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            if (await this.validateForm()) {
+
+            const isValid = await this.validateForm();
+
+            if (isValid) {
                 await this.submitForm();
             }
         });
-    }
-    
-    validateField(field, validateFn) {
-        const error = field.nextElementSibling;
-        const value = field.value.trim();
-        const validationError = validateFn(value);
-        
-        if (validationError) {
-            this.showFieldError(field, error, validationError);
-            return false;
-        } else {
-            this.clearFieldError(field);
-            return true;
+
+        const telefonoField = this.fields.telefono.element;
+
+        if (telefonoField) {
+            // Formateo en tiempo real
+            telefonoField.addEventListener('input', (e) => this.formatPhoneInput(e));
+
+            // Bloquear caracteres inválidos desde teclado
+            telefonoField.addEventListener('keypress', (e) => {
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
+                }
+            });
+
+            // Evitar pegar texto inválido
+            telefonoField.addEventListener('paste', (e) => {
+                e.preventDefault();
+                const paste = (e.clipboardData || window.clipboardData).getData('text');
+                const cleaned = paste.replace(/\D/g, '').substring(0, 8);
+
+                if (cleaned.length > 4) {
+                    e.target.value = cleaned.replace(/(\d{4})(\d+)/, '$1-$2');
+                } else {
+                    e.target.value = cleaned;
+                }
+            });
         }
     }
-    
+
+    formatPhoneInput(e) {
+        let value = e.target.value;
+
+        // Eliminar todo lo que no sea número
+        value = value.replace(/\D/g, '');
+
+        // Limitar a 8 dígitos (Guatemala)
+        value = value.substring(0, 8);
+
+        // Aplicar formato ####-####
+        if (value.length > 4) {
+            value = value.replace(/(\d{4})(\d+)/, '$1-$2');
+        }
+
+        e.target.value = value;
+    }
+
+    validateField(field, validateFn) {
+        const errorElement = field.nextElementSibling;
+        const value = field.value.trim();
+        const error = validateFn(value);
+
+        if (error) {
+            this.showFieldError(field, errorElement, error);
+            return false;
+        }
+
+        this.clearFieldError(field);
+        return true;
+    }
+
     async validateForm() {
         let isValid = true;
-        
+        let firstInvalidField = null;
+
         this.clearAllErrors();
-        
+
         for (const { element, validate } of Object.values(this.fields)) {
             if (!element) continue;
-            
-            if (!this.validateField(element, validate)) {
+
+            const valid = this.validateField(element, validate);
+
+            if (!valid) {
                 isValid = false;
-                
-                // Focus en el primer campo con error
-                if (isValid) {
-                    element.focus();
+
+                if (!firstInvalidField) {
+                    firstInvalidField = element;
                 }
             }
         }
-        
+
+        if (firstInvalidField) {
+            firstInvalidField.focus();
+        }
+
         return isValid;
     }
-    
+
     showFieldError(field, errorElement, message) {
+        if (!errorElement) return;
+
         field.style.borderColor = 'var(--color-error)';
         errorElement.textContent = message;
         errorElement.style.display = 'block';
     }
-    
+
     clearFieldError(field) {
         field.style.borderColor = '';
+
         const errorElement = field.nextElementSibling;
+
         if (errorElement && errorElement.classList.contains('error-message')) {
             errorElement.textContent = '';
             errorElement.style.display = 'none';
         }
     }
-    
+
     clearAllErrors() {
-        document.querySelectorAll('.error-message').forEach(error => {
-            error.textContent = '';
-            error.style.display = 'none';
+        document.querySelectorAll('.error-message').forEach(el => {
+            el.textContent = '';
+            el.style.display = 'none';
         });
-        
-        document.querySelectorAll('.form-group input, .form-group textarea').forEach(field => {
-            field.style.borderColor = '';
-        });
+
+        document.querySelectorAll('.form-group input, .form-group textarea, .form-group select')
+            .forEach(field => field.style.borderColor = '');
     }
-    
+
     async submitForm() {
         const submitBtn = this.contactForm.querySelector('button[type="submit"]');
-        const btnText = submitBtn.querySelector('.btn-text');
-        const btnLoading = submitBtn.querySelector('.btn-loading');
-        
+        const btnText = submitBtn?.querySelector('.btn-text');
+        const btnLoading = submitBtn?.querySelector('.btn-loading');
+
         if (!submitBtn || !btnText || !btnLoading) return;
-        
-        // Mostrar estado de carga
+
+        // estado loading
         submitBtn.disabled = true;
         btnText.style.display = 'none';
         btnLoading.style.display = 'inline-block';
-        
+
         try {
             const formData = new FormData(this.contactForm);
-            
+
             const response = await fetch(this.contactForm.action, {
                 method: 'POST',
                 body: formData,
@@ -285,29 +400,37 @@ class FormValidator {
                     'X-Requested-With': 'XMLHttpRequest'
                 }
             });
-            
+
             const result = await response.json();
-            
-            if (response.ok) {
-                this.showNotification('¡Mensaje enviado correctamente! Te contactaremos pronto.', 'success');
-                this.contactForm.reset();
-            } else {
-                throw new Error(result.error || 'Error al enviar el mensaje');
+
+            if (!response.ok) {
+                throw new Error(result.error || 'Error al enviar el formulario');
             }
-            
+
+            this.showNotification(
+                '¡Mensaje enviado correctamente! Te contactaremos pronto.',
+                'success'
+            );
+
+            this.contactForm.reset();
+
         } catch (error) {
             console.error('Error enviando formulario:', error);
-            this.showNotification(error.message || 'Error de conexión. Intenta nuevamente.', 'error');
+
+            this.showNotification(
+                error.message || 'Error de conexión. Intenta nuevamente.',
+                'error'
+            );
         } finally {
-            // Restaurar botón
             submitBtn.disabled = false;
             btnText.style.display = 'inline-block';
             btnLoading.style.display = 'none';
         }
     }
-    
+
     showNotification(message, type = 'info') {
         const notification = document.createElement('div');
+
         notification.className = `notification notification-${type}`;
         notification.style.cssText = `
             position: fixed;
@@ -322,28 +445,62 @@ class FormValidator {
             max-width: 400px;
             animation: slideIn 0.3s ease;
         `;
-        
+
         notification.innerHTML = `
             <div class="notification-content">
                 <span class="notification-message">${message}</span>
                 <button class="notification-close" aria-label="Cerrar notificación">&times;</button>
             </div>
         `;
-        
+
         document.body.appendChild(notification);
-        
-        // Auto-remover después de 5 segundos
+
         const autoRemove = setTimeout(() => {
             if (notification.parentNode) {
                 notification.style.animation = 'slideOut 0.3s ease forwards';
                 setTimeout(() => notification.remove(), 300);
             }
         }, 5000);
-        
-        // Cerrar manualmente
+
         notification.querySelector('.notification-close').addEventListener('click', () => {
             clearTimeout(autoRemove);
             notification.remove();
+        });
+    }
+
+    loadDepartamentos() {
+        const select = document.getElementById('departamento');
+        if (!select) return;
+
+        const departamentos = [
+            "Guatemala",
+            "Sacatepéquez",
+            "Chimaltenango",
+            "Escuintla",
+            "Santa Rosa",
+            "Sololá",
+            "Totonicapán",
+            "Quetzaltenango",
+            "Suchitepéquez",
+            "Retalhuleu",
+            "San Marcos",
+            "Huehuetenango",
+            "Quiché",
+            "Baja Verapaz",
+            "Alta Verapaz",
+            "Petén",
+            "Izabal",
+            "Zacapa",
+            "Chiquimula",
+            "Jalapa",
+            "Jutiapa"
+        ];
+
+        departamentos.forEach(dep => {
+            const option = document.createElement('option');
+            option.value = dep.toLowerCase();
+            option.textContent = dep;
+            select.appendChild(option);
         });
     }
 }
@@ -468,34 +625,29 @@ class HeaderManager {
     }
     
     onScroll() {
-        this.lastScrollY = window.scrollY;
-        
-        if (!this.ticking) {
-            requestAnimationFrame(() => this.updateHeader());
-            this.ticking = true;
-        }
+    const currentScrollY = window.scrollY;
+
+    if (!this.ticking) {
+        requestAnimationFrame(() => this.updateHeader(currentScrollY));
+        this.ticking = true;
     }
-    
-    updateHeader() {
-        const currentScrollY = this.lastScrollY;
-        
-        if (currentScrollY > 100) {
-            // Scrolling down - ocultar header
-            if (currentScrollY > this.lastScrollY) {
-                this.header.classList.add('hide');
-            } else {
-                // Scrolling up - mostrar header
-                this.header.classList.remove('hide');
-            }
-            
-            // Agregar sombra cuando se hace scroll
-            this.header.style.boxShadow = 'var(--shadow-medium)';
+}
+
+updateHeader(currentScrollY) {
+    if (currentScrollY > 100) {
+        if (currentScrollY > this.lastScrollY) {
+            this.header.classList.add('hide');
         } else {
-            // En la parte superior - mostrar header sin sombra
+            this.header.classList.remove('hide');
+        }
+
+        this.header.style.boxShadow = 'var(--shadow-medium)';
+        } else {
             this.header.classList.remove('hide');
             this.header.style.boxShadow = 'var(--shadow-light)';
         }
-        
+
+        this.lastScrollY = currentScrollY;
         this.ticking = false;
     }
 }

@@ -67,7 +67,7 @@ const productosData = {
     ginsenvit: {
         nombre: "GINSENVIT",
         tipo: "ENERGIZANTE NATURAL",
-        descripcion: "Suplemento vitaminico con ginseng para aumentar el rendimiento físico y mental.",
+        descripcion: "Suplemento vitamínico con ginseng para aumentar el rendimiento físico y mental.",
         imagen: "./img/ginsenvit.png",
         categoria: "Antiasténico",
         presentaciones: ["15 flaconetes"],
@@ -134,7 +134,7 @@ const productosData = {
             "Efectivo en dolor agudo de moderado a intenso",
             "De uso intramuscular e intravenosa",
             "Efectivo en dolor severo",
-            "Menos efectos secuntarios"
+            "Menos efectos secundarios"
         ]
     },
     dexketoprofeno_vitaminado: {
@@ -152,6 +152,21 @@ const productosData = {
             "Fácil administración",
             "Buen perfil de seguridad",
             "Vitaminas B1, B6 y B12 con acción neuroprotectora"
+        ]
+    },
+    ulcefar: {
+        nombre: "ULCEFAR",
+        tipo: "Protector gástrico",
+        descripcion: "Control eficaz de la acidez gástrica para el alivio del reflujo y la protección del estómago.",
+        imagen: "./img/ulcefar.png",
+        categoria: "Gástrico",
+        presentaciones: ["30 cápsulas"],
+        beneficios: [
+            "Reduce la producción de ácido gástrico",
+            "Alivia el reflujo y la acidez",
+            "Favorece la cicatrización de la mucosa gástrica",
+            "Acción prolongada durante el día",
+            "Seguridad y respaldo clínico"
         ]
     }
 };
@@ -194,7 +209,9 @@ class ProductosModalManager {
         });
         
         // Event listeners para cerrar modal
-        this.modalClose.addEventListener('click', () => this.closeModal());
+        if (this.modalClose) {
+            this.modalClose.addEventListener('click', () => this.closeModal());
+        }
         
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) this.closeModal();
@@ -270,19 +287,34 @@ class ProductosModalManager {
     renderPresentaciones(presentaciones) {
         const container = document.getElementById('modalPresentaciones');
         if (!container) return;
-        
-        container.innerHTML = presentaciones.map(presentacion => 
-            `<span class="modal-presentacion" tabindex="0">${presentacion}</span>`
-        ).join('');
+
+        // Limpiar contenido previo
+        container.innerHTML = '';
+
+        presentaciones.forEach(presentacion => {
+            const span = document.createElement('span');
+            span.className = 'modal-presentacion';
+            span.setAttribute('tabindex', '0');
+            span.textContent = presentacion;
+
+            container.appendChild(span);
+        });
     }
     
     renderBeneficios(beneficios) {
         const container = document.getElementById('modalBeneficios');
         if (!container) return;
-        
-        container.innerHTML = beneficios.map(beneficio => 
-            `<li tabindex="0">${beneficio}</li>`
-        ).join('');
+
+        // Limpiar contenido previo
+        container.innerHTML = '';
+
+        beneficios.forEach(beneficio => {
+            const li = document.createElement('li');
+            li.setAttribute('tabindex', '0');
+            li.textContent = beneficio;
+
+            container.appendChild(li);
+        });
     }
     
     showModal() {
@@ -419,14 +451,26 @@ class ProductosModalManager {
     showError(message) {
         const errorDiv = document.createElement('div');
         errorDiv.className = 'modal-error';
-        errorDiv.innerHTML = `
-            <div class="error-content">
-                <i class="fas fa-exclamation-triangle"></i>
-                <p>${message}</p>
-                <button onclick="this.parentElement.parentElement.remove()">Cerrar</button>
-            </div>
-        `;
-        
+
+        const content = document.createElement('div');
+        content.className = 'error-content';
+
+        const icon = document.createElement('i');
+        icon.className = 'fas fa-exclamation-triangle';
+
+        const text = document.createElement('p');
+        text.textContent = message;
+
+        const button = document.createElement('button');
+        button.textContent = 'Cerrar';
+        button.addEventListener('click', () => errorDiv.remove());
+
+        content.appendChild(icon);
+        content.appendChild(text);
+        content.appendChild(button);
+
+        errorDiv.appendChild(content);
+
         errorDiv.style.cssText = `
             position: fixed;
             top: 50%;
@@ -439,7 +483,7 @@ class ProductosModalManager {
             z-index: 10000;
             text-align: center;
         `;
-        
+
         document.body.appendChild(errorDiv);
     }
     
@@ -462,6 +506,7 @@ let productosModalManager = null;
 function initProductosModal() {
     try {
         productosModalManager = new ProductosModalManager();
+        window.ProductosModalManager = productosModalManager;
         console.log('Sistema de modal de productos inicializado correctamente');
     } catch (error) {
         console.error('Error inicializando el modal de productos:', error);

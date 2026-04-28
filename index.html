@@ -5,11 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
     <meta name="description"
-        content="Droguería Trifarma Guatemala - Productos farmacéuticos de calidad: Kidmax, Enerking, Dexketoprofeno. Vitaminas, suplementos y medicamentos para toda la familia.">
+        content="Droguería Trifarma Guatemala - Productos farmacéuticos de calidad: Kidmax, Enerking H4, dexketoprofeno, ortak, viotrof, starsingrip, argking, ginsenvit. Vitaminas, suplementos y medicamentos para toda la familia.">
     <meta name="keywords"
-        content="droguería Guatemala, farmacia, medicamentos Guatemala, vitaminas, suplementos, Kidmax, Enerking, Dexketoprofeno, salud familiar, productos farmacéuticos">
+        content="droguería Guatemala, farmacia, medicamentos Guatemala, vitaminas, suplementos, Kidmax, Enerking, h4, argking, Dexketoprofeno, ortak, ginsenvit, viotrof, starsingrip, salud familiar, productos farmacéuticos">
     <meta name="author" content="Trifarma">
     <meta name="robots" content="index, follow">
+
+    <meta name="geo.region" content="GT-GU" />
+    <meta name="geo.placename" content="Guatemala" />
+    <meta name="geo.position" content="14.634915;-90.506882" />
+    <meta name="ICBM" content="14.634915, -90.506882" />
     
     <!-- Preconexión para recursos externos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,7 +44,7 @@
     <link rel="icon" type="image/x-icon" href="./img/favicon.ico">
     <meta name="theme-color" content="#004AAD">
 
-    <title>Droguería Trifarma - Productos Farmacéuticos de Calidad en Guatemala</title>
+    <title>Droguería Trifarma</title>
 
     <!-- Estilos -->
     <link rel="stylesheet" href="styles.css">
@@ -365,6 +370,34 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- Línea: Gástrica -->
+                    <div class="categoria">
+                        <div class="categoria-header">
+                            <div class="categoria-titulo">
+                                <i class="fas fa-pills categoria-icono" aria-hidden="true"></i>
+                                GÁSTRICA
+                            </div>
+                        </div>
+                        <div class="productos-grid">
+                            <div class="producto-card" data-producto="ulcefar" tabindex="0">
+                                <div class="producto-imagen">
+                                    <img src="./img/ulcefar.png" alt="Ulcefar - Protector gástrico" loading="lazy" width="200" height="200">
+                                </div>
+                                <div class="producto-info">
+                                    <h3 class="producto-nombre">ULCEFAR</h3>
+                                    <p class="producto-descripcion">
+                                        <!-- Descripción del producto -->
+                                        Inhibidor de la bomba de protones (esomeprazol) para el tratamiento de afecciones gástricas.
+                                    </p>
+                                    <div class="producto-presentaciones">
+                                        <!-- Presentaciones -->
+                                        <span class="presentacion">30 cápsulas</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -413,36 +446,83 @@
                 <div class="contacto-content">
                     <div class="contacto-form">
                         <form id="formulario-contacto" action="send.php" method="POST" novalidate>
-                            <!-- Campo honeypot para bots -->
+                            
+                            <!-- Honeypot -->
                             <div class="sr-only" aria-hidden="true">
                                 <label for="url">Dejar este campo vacío</label>
                                 <input type="text" id="url" name="url" tabindex="-1" autocomplete="off">
                             </div>
 
+                            <!-- Nombre -->
                             <div class="form-group">
                                 <label for="nombre" class="sr-only">Nombre completo</label>
-                                <input type="text" id="nombre" name="nombre" placeholder="Nombre completo" required
-                                    minlength="2" maxlength="100" aria-required="true">
-                                <span class="error-message" aria-live="polite"></span>
+                                <input 
+                                    type="text" 
+                                    id="nombre" 
+                                    name="nombre" 
+                                    placeholder="Nombre completo" 
+                                    required
+                                    minlength="2" 
+                                    maxlength="100">
+                                <span class="error-message"></span>
                             </div>
+
+                            <!-- Departamento -->
                             <div class="form-group">
-                                <label for="email" class="sr-only">Correo electrónico</label>
-                                <input type="email" id="email" name="email" placeholder="Correo electrónico" required
-                                    maxlength="150" aria-required="true">
-                                <span class="error-message" aria-live="polite"></span>
+                                <label for="departamento" class="sr-only">Departamento</label>
+                                <select id="departamento" name="departamento" required>
+                                    <option value="">Selecciona un departamento</option>
+                                </select>
+                                <span class="error-message"></span>
                             </div>
+
+                            <!-- Teléfono -->
+                            <div class="form-group">
+                                <label for="telefono" class="sr-only">Número de teléfono</label>
+
+                                <div style="display: flex; gap: 8px;">
+                                    
+                                    <!-- Código de país -->
+                                    <select id="codigo_pais" name="codigo_pais" required>
+                                        <option value="+502" selected>🇬🇹 +502</option>
+                                    </select>
+
+                                    <!-- Número -->
+                                    <input 
+                                        type="tel" 
+                                        id="telefono" 
+                                        name="telefono" 
+                                        placeholder="Número de teléfono"
+                                        required
+                                        pattern="[0-9]{4}-[0-9]{4}"
+                                        maxlength="9">
+                                </div>
+
+                                <span class="error-message"></span>
+                            </div>
+
+                            <!-- Mensaje -->
                             <div class="form-group">
                                 <label for="mensaje" class="sr-only">Tu mensaje</label>
-                                <textarea id="mensaje" name="mensaje" rows="5" placeholder="Tu mensaje" required
-                                    minlength="10" maxlength="2000" aria-required="true"></textarea>
-                                <span class="error-message" aria-live="polite"></span>
+                                <textarea 
+                                    id="mensaje" 
+                                    name="mensaje" 
+                                    rows="5" 
+                                    placeholder="Tu mensaje" 
+                                    required
+                                    minlength="10" 
+                                    maxlength="2000"></textarea>
+                                <span class="error-message"></span>
                             </div>
+
+                            <!-- Botón -->
                             <button type="submit" class="btn">
                                 <span class="btn-text">Enviar Mensaje</span>
                                 <span class="btn-loading" style="display: none;">
-                                    <i class="fas fa-spinner fa-spin" aria-hidden="true"></i> Enviando...
+                                    <i class="fas fa-spinner fa-spin"></i> Enviando...
                                 </span>
                             </button>
+
                         </form>
                     </div>
 

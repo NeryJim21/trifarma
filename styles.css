@@ -942,8 +942,37 @@ body {
   line-height: 1.5;
 }
 
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--color-gris-medio);
+  border-radius: 6px;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--color-gris-claro);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  transition: var(--transition);
+  appearance: none; /* Quita estilo feo nativo */
+  cursor: pointer;
+
+  /* Flecha personalizada */
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5 7L10 12L15 7' stroke='%236C757D' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 16px;
+
+  padding-right: 40px;
+}
+
 .form-group input:focus,
 .form-group textarea:focus {
+  outline: none;
+  border-color: var(--color-azul-intermedio);
+  box-shadow: 0 0 0 2px rgba(0, 159, 227, 0.1);
+  background-color: var(--color-blanco);
+}
+
+.form-group select:focus {
   outline: none;
   border-color: var(--color-azul-intermedio);
   box-shadow: 0 0 0 2px rgba(0, 159, 227, 0.1);
