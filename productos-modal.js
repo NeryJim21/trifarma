@@ -157,16 +157,16 @@ const productosData = {
     ulcefar: {
         nombre: "ULCEFAR",
         tipo: "Protector gástrico",
-        descripcion: "Control eficaz de la acidez gástrica para el alivio del reflujo y la protección del estómago.",
+        descripcion: "Esomeprazol indicado para el manejo del reflujo gastroesofágico, acidez y protección de la mucosa gástrica.",
         imagen: "./img/ulcefar.png",
         categoria: "Gástrico",
         presentaciones: ["30 cápsulas"],
         beneficios: [
-            "Reduce la producción de ácido gástrico",
-            "Alivia el reflujo y la acidez",
-            "Favorece la cicatrización de la mucosa gástrica",
-            "Acción prolongada durante el día",
-            "Seguridad y respaldo clínico"
+            "Alivia el reflujo y la acidez estomacal",
+            "Ayuda en el tratamiento de esofagitis erosiva",
+            "Favorece la cicatrización de úlceras gástricas y duodenales",
+            "Uso complementario en la erradicación de Helicobacter pylori",
+            "Protege el estómago frente al uso de AINEs"
         ]
     }
 };
