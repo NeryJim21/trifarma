@@ -469,39 +469,46 @@ class FormValidator {
     }
 
     loadDepartamentos() {
-        const select = document.getElementById('departamento');
-        if (!select) return;
+        const waitForSelect = setInterval(() => {
+            const select = document.getElementById('departamento');
 
-        const departamentos = [
-            "Guatemala",
-            "Sacatepéquez",
-            "Chimaltenango",
-            "Escuintla",
-            "Santa Rosa",
-            "Sololá",
-            "Totonicapán",
-            "Quetzaltenango",
-            "Suchitepéquez",
-            "Retalhuleu",
-            "San Marcos",
-            "Huehuetenango",
-            "Quiché",
-            "Baja Verapaz",
-            "Alta Verapaz",
-            "Petén",
-            "Izabal",
-            "Zacapa",
-            "Chiquimula",
-            "Jalapa",
-            "Jutiapa"
-        ];
+            if (!select) return;
 
-        departamentos.forEach(dep => {
-            const option = document.createElement('option');
-            option.value = dep.toLowerCase();
-            option.textContent = dep;
-            select.appendChild(option);
-        });
+            clearInterval(waitForSelect);
+
+            const departamentos = [
+                "Guatemala",
+                "Sacatepéquez",
+                "Chimaltenango",
+                "Escuintla",
+                "Santa Rosa",
+                "Sololá",
+                "Totonicapán",
+                "Quetzaltenango",
+                "Suchitepéquez",
+                "Retalhuleu",
+                "San Marcos",
+                "Huehuetenango",
+                "Quiché",
+                "Baja Verapaz",
+                "Alta Verapaz",
+                "Petén",
+                "Izabal",
+                "Zacapa",
+                "Chiquimula",
+                "Jalapa",
+                "Jutiapa"
+            ];
+
+            departamentos.forEach(dep => {
+                const option = document.createElement('option');
+                option.value = dep.toLowerCase();
+                option.textContent = dep;
+                select.appendChild(option);
+            });
+
+            console.log('Departamentos cargados');
+        }, 100);
     }
 }
 
